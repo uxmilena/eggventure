@@ -46,7 +46,7 @@ export const dates = [
   {
     id: 'romance-nice-day-2', category: 'romance', submood: 'nice', time: 'day',
     title: 'Rubell Museum',
-    description: 'Wander through bold contemporary art and let the pieces spark conversation.',
+    description: 'Awesome art and more awesome pizza.',
     image: rubellImg,
   },
   {
