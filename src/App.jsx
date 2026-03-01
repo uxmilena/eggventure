@@ -33,7 +33,13 @@ function pickDate(options, completedDates) {
 export default function App() {
   const { state, markDateDone, unlockRoadTrip, pickNextRiddle } = useGameState()
 
-  const [screen, setScreen]             = useState(SCREENS.LANDING)
+  const [screen, setScreen]             = useState(() => {
+    try {
+      const saved = JSON.parse(localStorage.getItem('eggventure') || '{}')
+      const locked = saved.lastCompletedAt && (Date.now() - saved.lastCompletedAt) < 24 * 60 * 60 * 1000
+      return locked ? SCREENS.COUNTDOWN : SCREENS.LANDING
+    } catch { return SCREENS.LANDING }
+  })
   const [time, setTime]                 = useState(null)
   const [category, setCategory]         = useState(null)
   const [submood, setSubmood]           = useState(null)
