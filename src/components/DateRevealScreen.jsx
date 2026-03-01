@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import RiddleGate from './RiddleGate'
+import BookingModal from './BookingModal'
 
 const categoryEmojis = {
   romance: '🌹',
@@ -18,13 +19,15 @@ const categoryColors = {
   roadtrip: { bg: 'linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%)', soft: '#f5f3ff' },
 }
 
-export default function DateRevealScreen({ date, needsRiddle, onDone, onPickAgain, isFirstEver }) {
+export default function DateRevealScreen({ date, needsRiddle, onDone, isFirstEver }) {
   const [riddleSolved, setRiddleSolved] = useState(!needsRiddle)
+  const [showBooking, setShowBooking] = useState(false)
   const [showFirstMessage, setShowFirstMessage] = useState(false)
 
   const colors = categoryColors[date.category] || categoryColors.fun
 
-  function handleDone() {
+  function handleBookingConfirm() {
+    setShowBooking(false)
     if (isFirstEver) {
       setShowFirstMessage(true)
     } else {
@@ -116,14 +119,14 @@ export default function DateRevealScreen({ date, needsRiddle, onDone, onPickAgai
         </motion.p>
       </div>
 
-      {/* Buttons */}
-      <div style={{ padding: '20px 20px 48px', display: 'flex', flexDirection: 'column', gap: 12, marginTop: 'auto' }}>
+      {/* Button */}
+      <div style={{ padding: '20px 20px 48px', marginTop: 'auto' }}>
         <motion.button
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.35 }}
           whileTap={{ scale: 0.97 }}
-          onClick={handleDone}
+          onClick={() => setShowBooking(true)}
           style={{
             width: '100%',
             padding: '18px 0',
@@ -138,26 +141,18 @@ export default function DateRevealScreen({ date, needsRiddle, onDone, onPickAgai
         >
           Let's do this 🥚
         </motion.button>
-        <motion.button
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.45 }}
-          whileTap={{ scale: 0.97 }}
-          onClick={onPickAgain}
-          style={{
-            width: '100%',
-            padding: '16px 0',
-            borderRadius: 999,
-            border: '2px solid #e8d5f5',
-            background: 'transparent',
-            color: '#7c6a9e',
-            fontSize: 15,
-            fontWeight: 600,
-          }}
-        >
-          Pick again ↩
-        </motion.button>
       </div>
+
+      {/* Booking modal */}
+      <AnimatePresence>
+        {showBooking && (
+          <BookingModal
+            date={date}
+            onConfirm={handleBookingConfirm}
+            onClose={() => setShowBooking(false)}
+          />
+        )}
+      </AnimatePresence>
 
       {/* First-ever completion modal */}
       <AnimatePresence>
@@ -175,7 +170,7 @@ export default function DateRevealScreen({ date, needsRiddle, onDone, onPickAgai
               alignItems: 'center',
               justifyContent: 'center',
               padding: 28,
-              zIndex: 100,
+              zIndex: 400,
             }}
           >
             <motion.div

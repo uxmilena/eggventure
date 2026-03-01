@@ -166,7 +166,6 @@ export default function App() {
               date={selectedDate}
               needsRiddle={needsRiddle()}
               onDone={handleDone}
-              onPickAgain={handlePickAgain}
               isFirstEver={isFirstEver}
             />
           </div>
