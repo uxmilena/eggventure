@@ -46,8 +46,7 @@ export default function App() {
   const TWENTY_FOUR_HOURS = 24 * 60 * 60 * 1000
 
   function handleStart() {
-    const locked = state.lastCompletedAt && (Date.now() - state.lastCompletedAt) < TWENTY_FOUR_HOURS
-    setScreen(locked ? SCREENS.COUNTDOWN : SCREENS.HOWTOPLAY)
+    setScreen(SCREENS.HOWTOPLAY)
   }
 
   function handleCountdownReady() {

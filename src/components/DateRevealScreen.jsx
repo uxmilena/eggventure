@@ -47,13 +47,13 @@ export default function DateRevealScreen({ date, onDone, onWait }) {
         position: 'relative', overflow: 'hidden',
       }}
     >
-      {/* Background image (non-road-trip only) */}
-      {!isRoadTrip && (
+      {/* Time-of-day background (non-road-trip, no custom image only) */}
+      {!isRoadTrip && !date.image && (
         <div style={{
           position: 'absolute', inset: 0, pointerEvents: 'none',
-          backgroundImage: `url(${date.image || (date.time === 'night' ? bgNight : bgDay)})`,
+          backgroundImage: `url(${date.time === 'night' ? bgNight : bgDay})`,
           backgroundSize: 'cover', backgroundPosition: 'center',
-          opacity: date.image ? 0.18 : 0.1,
+          opacity: 0.1,
         }} />
       )}
 
@@ -71,20 +71,34 @@ export default function DateRevealScreen({ date, onDone, onWait }) {
         />
       ))}
 
-      {/* Top colour band */}
-      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 230, background: colors.bg, borderRadius: '0 0 44px 44px' }} />
+      {/* Top band — photo if available, otherwise colour gradient */}
+      <div style={{
+        position: 'absolute', top: 0, left: 0, right: 0, height: 280,
+        borderRadius: '0 0 44px 44px', overflow: 'hidden',
+        background: date.image ? 'none' : colors.bg,
+      }}>
+        {date.image && (
+          <img
+            src={date.image}
+            alt=""
+            style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }}
+          />
+        )}
+      </div>
 
-      {/* Floating emoji */}
-      <motion.div
-        animate={{ y: [0, -10, 0] }}
-        transition={{ duration: 3.2, repeat: Infinity, ease: 'easeInOut' }}
-        style={{ position: 'relative', zIndex: 10, textAlign: 'center', paddingTop: 64, fontSize: 66, filter: 'drop-shadow(0 6px 16px rgba(0,0,0,0.14))' }}
-      >
-        {categoryEmojis[date.category] || '🥚'}
-      </motion.div>
+      {/* Floating emoji (only when no custom image) */}
+      {!date.image && (
+        <motion.div
+          animate={{ y: [0, -10, 0] }}
+          transition={{ duration: 3.2, repeat: Infinity, ease: 'easeInOut' }}
+          style={{ position: 'relative', zIndex: 10, textAlign: 'center', paddingTop: 64, fontSize: 66, filter: 'drop-shadow(0 6px 16px rgba(0,0,0,0.14))' }}
+        >
+          {categoryEmojis[date.category] || '🥚'}
+        </motion.div>
+      )}
 
       {/* Card */}
-      <div style={{ position: 'relative', zIndex: 10, margin: '24px 20px 0', background: '#FFFDF5', borderRadius: 32, padding: '28px 24px', boxShadow: '0 8px 40px rgba(92,61,30,0.12)' }}>
+      <div style={{ position: 'relative', zIndex: 10, margin: `${date.image ? 240 : 24}px 20px 0`, background: '#FFFDF5', borderRadius: 32, padding: '28px 24px', boxShadow: '0 8px 40px rgba(92,61,30,0.12)' }}>
         {isRoadTrip && (
           <div style={{ display: 'inline-block', background: 'linear-gradient(135deg, #5C3D1E 0%, #8B6340 100%)', borderRadius: 99, padding: '4px 14px', fontSize: 11, fontWeight: 800, color: '#FFF3C0', letterSpacing: '0.07em', textTransform: 'uppercase', marginBottom: 12 }}>
             Road Trip
