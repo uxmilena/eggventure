@@ -1,5 +1,7 @@
 import kampongImg from '../assets/kampong-bunster-Garden-Theater-2.png'
 import rubellImg from '../assets/RM-NW-Logo.jpg'
+import butterflyImg from '../assets/Butterfly-World-Fort-Lauderdale2-1.jpg'
+import bayfrontImg from '../assets/bayfront.jpg'
 
 export const ROAD_TRIP_CODES = {
   TURTLES: 'tortuga',
@@ -51,17 +53,17 @@ export const dates = [
   },
   {
     id: 'romance-nice-day-3', category: 'romance', submood: 'nice', time: 'day',
-    title: 'Butterfly Museum',
-    description: 'Step into a living kaleidoscope of color and flutter together.',
-    image: 'https://source.unsplash.com/featured/?butterfly',
+    title: 'Butterfly World',
+    description: 'Hundreds of tropical butterflies, waterfalls, koi ponds, and free-flying parakeets — all under one roof. Watch the full butterfly life cycle up close, from larva to wings, in a lush rainforest setting.',
+    image: butterflyImg,
   },
 
   // ── Romance / Nice / Night ────────────────────────────────────────────────
   {
     id: 'romance-nice-night-1', category: 'romance', submood: 'nice', time: 'night',
     title: 'Bayfront Park Fountain Show + Dinner',
-    description: 'Watch the lights and water dance at Bayfront, then steal a table nearby for dinner under the stars.',
-    image: 'https://source.unsplash.com/featured/?fountain-night',
+    description: 'Enjoy our musical water show every hour.',
+    image: bayfrontImg,
   },
   {
     id: 'romance-nice-night-2', category: 'romance', submood: 'nice', time: 'night',
