@@ -1,4 +1,5 @@
 import kampongImg from '../assets/kampong-bunster-Garden-Theater-2.png'
+import rubellImg from '../assets/RM-NW-Logo.jpg'
 
 export const ROAD_TRIP_CODES = {
   TURTLES: 'tortuga',
@@ -46,7 +47,7 @@ export const dates = [
     id: 'romance-nice-day-2', category: 'romance', submood: 'nice', time: 'day',
     title: 'Rubell Museum',
     description: 'Wander through bold contemporary art and let the pieces spark conversation.',
-    image: 'https://source.unsplash.com/featured/?art-museum',
+    image: rubellImg,
   },
   {
     id: 'romance-nice-day-3', category: 'romance', submood: 'nice', time: 'day',
