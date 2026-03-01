@@ -103,8 +103,8 @@ function CategoryCard({ cat, onSelect, unlockedRoadTrips, onLocked, time, comple
         </span>
       )}
       {exhausted && (
-        <span style={{ fontSize: 10, color: '#C4A882', fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase' }}>
-          More coming soon
+        <span style={{ fontSize: 11, color: '#C4A882', fontWeight: 600, lineHeight: 1.4, textAlign: 'center', padding: '0 4px' }}>
+          You've had all the {cat.label} adventures for now. Want more? Let Marky know 🥚
         </span>
       )}
     </motion.button>

@@ -29,7 +29,7 @@ const RT_STARS = [
   { id: 8, x: 92, y: 12, s: 1.4, d: 1.0 }, { id: 9, x: 48, y: 28, s: 1.1, d: 0.6 },
 ]
 
-export default function DateRevealScreen({ date, onDone }) {
+export default function DateRevealScreen({ date, onDone, onWait }) {
   const [showBooking, setShowBooking] = useState(false)
   const colors     = categoryColors[date.category] || categoryColors.fun
   const isRoadTrip = date.category === 'roadtrip'
@@ -114,6 +114,13 @@ export default function DateRevealScreen({ date, onDone }) {
           style={{ width: '100%', padding: '18px 0', borderRadius: 999, border: 'none', background: colors.bg, color: '#3D2B0A', fontSize: 17, fontWeight: 800, boxShadow: '0 8px 28px rgba(92,61,30,0.18)' }}
         >
           Let's do this 🥚
+        </motion.button>
+        <motion.button
+          initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}
+          onClick={() => onWait(date.id)}
+          style={{ background: 'none', border: 'none', fontSize: 13, fontWeight: 600, color: isRoadTrip ? 'rgba(255,220,120,0.45)' : 'rgba(92,61,30,0.35)', padding: '6px 0' }}
+        >
+          or wait 24 hours
         </motion.button>
       </div>
       {/* Booking modal */}

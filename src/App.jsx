@@ -4,6 +4,7 @@ import { useGameState } from './hooks/useGameState'
 import { getDateOptions, dates, ROAD_TRIP_CODES } from './data/dates'
 import { riddles } from './data/riddles'
 import LandingScreen from './components/LandingScreen'
+import CountdownScreen from './components/CountdownScreen'
 import HowToPlayScreen from './components/HowToPlayScreen'
 import RiddleScreen from './components/RiddleScreen'
 import DayNightScreen from './components/DayNightScreen'
@@ -14,6 +15,7 @@ import RoadTripModal from './components/RoadTripModal'
 
 const SCREENS = {
   LANDING:   'landing',
+  COUNTDOWN: 'countdown',
   HOWTOPLAY: 'howtoplay',
   RIDDLE:    'riddle',
   DAYNIGHT: 'daynight',
@@ -29,26 +31,32 @@ function pickDate(options, completedDates) {
 }
 
 export default function App() {
-  const { state, markDateDone, unlockRoadTrip } = useGameState()
+  const { state, markDateDone, unlockRoadTrip, pickNextRiddle } = useGameState()
 
   const [screen, setScreen]             = useState(SCREENS.LANDING)
   const [time, setTime]                 = useState(null)
   const [category, setCategory]         = useState(null)
   const [submood, setSubmood]           = useState(null)
   const [selectedDate, setSelectedDate] = useState(null)
+  const [currentRiddle, setCurrentRiddle] = useState(null)
   const [showRoadTripModal, setShowRoadTripModal] = useState(false)
-
-  // Riddle index computed from progress — cycles through available riddles
-  const riddleIndex  = state.completedDates.length % riddles.length
-  const currentRiddle = riddles[riddleIndex]
 
   // ── Navigation handlers ────────────────────────────────────────────────
 
+  const TWENTY_FOUR_HOURS = 24 * 60 * 60 * 1000
+
   function handleStart() {
+    const locked = state.lastCompletedAt && (Date.now() - state.lastCompletedAt) < TWENTY_FOUR_HOURS
+    setScreen(locked ? SCREENS.COUNTDOWN : SCREENS.HOWTOPLAY)
+  }
+
+  function handleCountdownReady() {
     setScreen(SCREENS.HOWTOPLAY)
   }
 
   function handleHowToPlayContinue() {
+    const riddle = pickNextRiddle(riddles)
+    setCurrentRiddle(riddle)
     setScreen(SCREENS.RIDDLE)
   }
 
@@ -102,6 +110,15 @@ export default function App() {
     setScreen(SCREENS.LANDING)
   }
 
+  function handleWait(dateId) {
+    markDateDone(dateId)
+    setTime(null)
+    setCategory(null)
+    setSubmood(null)
+    setSelectedDate(null)
+    setScreen(SCREENS.COUNTDOWN)
+  }
+
   function handleBackFromCategory() {
     setScreen(SCREENS.DAYNIGHT)
   }
@@ -131,17 +148,26 @@ export default function App() {
           </div>
         )}
 
+        {screen === SCREENS.COUNTDOWN && (
+          <div key="countdown" style={{ flex: 1, display: 'flex', flexDirection: 'column', minHeight: '100%' }}>
+            <CountdownScreen
+              lastCompletedAt={state.lastCompletedAt}
+              onReady={handleCountdownReady}
+              onCodeClick={() => setShowRoadTripModal(true)}
+            />
+          </div>
+        )}
+
         {screen === SCREENS.HOWTOPLAY && (
           <div key="howtoplay" style={{ flex: 1, overflowY: 'auto', minHeight: '100%' }}>
             <HowToPlayScreen onContinue={handleHowToPlayContinue} />
           </div>
         )}
 
-        {screen === SCREENS.RIDDLE && (
+        {screen === SCREENS.RIDDLE && currentRiddle && (
           <div key="riddle" style={{ flex: 1, minHeight: '100%' }}>
             <RiddleScreen
               riddle={currentRiddle}
-              riddleNumber={riddleIndex + 1}
               onSolved={handleRiddleSolved}
             />
           </div>
@@ -182,6 +208,7 @@ export default function App() {
             <DateRevealScreen
               date={selectedDate}
               onDone={handleDone}
+              onWait={handleWait}
             />
           </div>
         )}

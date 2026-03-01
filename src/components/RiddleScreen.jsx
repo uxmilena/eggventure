@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
-export default function RiddleScreen({ riddle, riddleNumber, onSolved }) {
+export default function RiddleScreen({ riddle, onSolved }) {
   const [answer, setAnswer]   = useState('')
   const [shaking, setShaking] = useState(false)
   const [error, setError]     = useState('')
@@ -63,11 +63,6 @@ export default function RiddleScreen({ riddle, riddleNumber, onSolved }) {
             key="riddle-content"
             style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 28 }}
           >
-            {/* Counter */}
-            <div style={{ fontSize: 11, fontWeight: 800, color: '#C4A882', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-              Riddle #{riddleNumber}
-            </div>
-
             {/* Honey jar */}
             <div style={{ fontSize: 58 }}>🍯</div>
 
@@ -133,12 +128,6 @@ export default function RiddleScreen({ riddle, riddleNumber, onSolved }) {
               </motion.button>
             </form>
 
-            <button
-              onClick={onSolved}
-              style={{ background: 'none', border: 'none', fontSize: 12, color: '#C4A882', opacity: 0.5, marginTop: 4 }}
-            >
-              skip (testing)
-            </button>
           </motion.div>
         )}
       </AnimatePresence>

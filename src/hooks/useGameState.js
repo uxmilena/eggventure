@@ -4,6 +4,9 @@ const DEFAULT_STATE = {
   firstDateDone: false,
   completedDates: [],
   roadTripUnlocked: [],
+  lastCompletedAt: null,
+  usedRiddleIds: [],
+  currentRiddleId: null,
 }
 
 function loadState() {
@@ -30,6 +33,7 @@ export function useGameState() {
     setState(prev => ({
       ...prev,
       firstDateDone: true,
+      lastCompletedAt: Date.now(),
       completedDates: prev.completedDates.includes(dateId)
         ? prev.completedDates
         : [...prev.completedDates, dateId],
@@ -50,6 +54,21 @@ export function useGameState() {
     return state.roadTripUnlocked.includes(code.trim().toUpperCase())
   }
 
+  function pickNextRiddle(riddleList) {
+    const used = state.usedRiddleIds
+    const available = riddleList.filter(r => !used.includes(r.id))
+    const pool = available.length > 0 ? available : riddleList
+    const picked = pool[Math.floor(Math.random() * pool.length)]
+    setState(prev => ({
+      ...prev,
+      currentRiddleId: picked.id,
+      usedRiddleIds: available.length > 0
+        ? [...prev.usedRiddleIds, picked.id]
+        : [picked.id], // reset when all used
+    }))
+    return picked
+  }
+
   function isDateDone(dateId) {
     return state.completedDates.includes(dateId)
   }
@@ -58,6 +77,7 @@ export function useGameState() {
     state,
     markDateDone,
     unlockRoadTrip,
+    pickNextRiddle,
     isRoadTripUnlocked,
     isDateDone,
   }
