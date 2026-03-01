@@ -2,6 +2,7 @@ export const ROAD_TRIP_CODES = {
   TURTLES: 'tortuga',
   HANGOVER: 'vegas',
   BEIGNET: 'nola',
+  WINE: 'glassblowing',
 }
 
 export const categories = [
@@ -23,95 +24,322 @@ export const subMoods = {
   ],
   adventure: [
     { id: 'outdoors', label: 'Outdoors', emoji: '🏕️', description: 'Into the wild' },
-    { id: 'skill', label: 'Skill', emoji: '⚔️', description: 'Level up together' },
     { id: 'indoor', label: 'Indoor', emoji: '🧗', description: 'Adventure inside' },
   ],
   food: [
-    { id: 'homecooked', label: 'Home Cooked', emoji: '🍳', description: 'We cook it' },
-    { id: 'fancy', label: 'Fancy', emoji: '🥂', description: 'Treat yourselves' },
-    { id: 'cozy', label: 'Cozy', emoji: '☕', description: 'Chill bites' },
+    { id: 'in', label: 'In', emoji: '🏠', description: 'Stay in & cook' },
+    { id: 'out', label: 'Out', emoji: '🍽️', description: 'Go out & eat' },
   ],
 }
 
-const placeholder = {
-  title: 'Coming soon 🥚',
-  description: 'Something special is being planned…',
-}
-
 export const dates = [
-  // Romance / Nice / Day
-  { id: 'romance-nice-day-1', category: 'romance', submood: 'nice', time: 'day', title: 'Ikebana Workshop at Kampong', description: 'A slow, beautiful morning arranging flowers together in a botanical paradise.' },
-  { id: 'romance-nice-day-2', category: 'romance', submood: 'nice', time: 'day', title: 'Rubell Museum', description: 'Wander through bold contemporary art and let the pieces spark conversation.' },
-  { id: 'romance-nice-day-3', category: 'romance', submood: 'nice', time: 'day', title: 'Butterfly Museum', description: 'Step into a living kaleidoscope of color and flutter together.' },
+  // ── Romance / Nice / Day ──────────────────────────────────────────────────
+  {
+    id: 'romance-nice-day-1', category: 'romance', submood: 'nice', time: 'day',
+    title: 'Ikebana Workshop at Kampong',
+    description: 'A slow, beautiful morning arranging flowers together in a botanical paradise.',
+    image: 'https://source.unsplash.com/featured/?flower-arrangement',
+  },
+  {
+    id: 'romance-nice-day-2', category: 'romance', submood: 'nice', time: 'day',
+    title: 'Rubell Museum',
+    description: 'Wander through bold contemporary art and let the pieces spark conversation.',
+    image: 'https://source.unsplash.com/featured/?art-museum',
+  },
+  {
+    id: 'romance-nice-day-3', category: 'romance', submood: 'nice', time: 'day',
+    title: 'Butterfly Museum',
+    description: 'Step into a living kaleidoscope of color and flutter together.',
+    image: 'https://source.unsplash.com/featured/?butterfly',
+  },
 
-  // Romance / Nice / Night
-  { id: 'romance-nice-night-1', category: 'romance', submood: 'nice', time: 'night', ...placeholder },
+  // ── Romance / Nice / Night ────────────────────────────────────────────────
+  {
+    id: 'romance-nice-night-1', category: 'romance', submood: 'nice', time: 'night',
+    title: 'Bayfront Park Fountain Show + Dinner',
+    description: 'Watch the lights and water dance at Bayfront, then steal a table nearby for dinner under the stars.',
+    image: 'https://source.unsplash.com/featured/?fountain-night',
+  },
+  {
+    id: 'romance-nice-night-2', category: 'romance', submood: 'nice', time: 'night',
+    title: 'Night at the Theatre',
+    description: 'Dress up, sit close, and let a live performance take you somewhere else entirely.',
+    image: 'https://source.unsplash.com/featured/?theatre',
+  },
 
-  // Romance / Naughty / Day
-  { id: 'romance-naughty-day-1', category: 'romance', submood: 'naughty', time: 'day', title: 'Couples Massage', description: 'Side by side, melting into pure bliss together.' },
+  // ── Romance / Naughty / Day ───────────────────────────────────────────────
+  {
+    id: 'romance-naughty-day-1', category: 'romance', submood: 'naughty', time: 'day',
+    title: 'Couples Massage',
+    description: 'Side by side, melting into pure bliss together.',
+    image: 'https://source.unsplash.com/featured/?spa-massage',
+  },
+  {
+    id: 'romance-naughty-day-2', category: 'romance', submood: 'naughty', time: 'day',
+    title: 'Turkish Baths',
+    description: 'Steam, scrub, and soak in an ancient ritual made for two.',
+    image: 'https://source.unsplash.com/featured/?hammam',
+  },
 
-  // Romance / Naughty / Night
-  { id: 'romance-naughty-night-1', category: 'romance', submood: 'naughty', time: 'night', title: 'Strangers at a Bar', description: 'Meet as strangers, flirt like you just found each other, and fall in love all over again.' },
-  { id: 'romance-naughty-night-2', category: 'romance', submood: 'naughty', time: 'night', title: 'Burlesque Show', description: 'An electrifying night of performance art, feathers, and fire.' },
+  // ── Romance / Naughty / Night ─────────────────────────────────────────────
+  {
+    id: 'romance-naughty-night-1', category: 'romance', submood: 'naughty', time: 'night',
+    title: 'Strangers at a Bar',
+    description: 'Meet as strangers, flirt like you just found each other, and fall in love all over again.',
+    image: 'https://source.unsplash.com/featured/?cocktail-bar',
+  },
+  {
+    id: 'romance-naughty-night-2', category: 'romance', submood: 'naughty', time: 'night',
+    title: 'Burlesque Show',
+    description: 'An electrifying night of performance art, feathers, and fire.',
+    image: 'https://source.unsplash.com/featured/?cabaret',
+  },
 
-  // Fun / Out & About / Day
-  { id: 'fun-out-day-1', category: 'fun', submood: 'out', time: 'day', title: 'Ice Skating', description: 'Glide (or wobble) around the rink hand in hand — falling is half the fun.' },
+  // ── Fun / Out & About / Day ───────────────────────────────────────────────
+  {
+    id: 'fun-out-day-1', category: 'fun', submood: 'out', time: 'day',
+    title: 'Ice Skating',
+    description: 'Glide (or wobble) around the rink hand in hand — falling is half the fun.',
+    image: 'https://source.unsplash.com/featured/?ice-skating',
+  },
+  {
+    id: 'fun-out-day-2', category: 'fun', submood: 'out', time: 'day',
+    title: 'Puttery — Indoor Golf',
+    description: 'Mini golf with cocktails, neon, and zero shame about your handicap.',
+    image: 'https://source.unsplash.com/featured/?mini-golf',
+  },
+  {
+    id: 'fun-out-day-3', category: 'fun', submood: 'out', time: 'day',
+    title: 'Biscayne Bay Sightseeing Boat Tour',
+    description: 'Cruise past the mansions of the rich and famous and pretend you belong there.',
+    image: 'https://source.unsplash.com/featured/?boat-tour',
+  },
 
-  // Fun / Out & About / Night
-  { id: 'fun-out-night-1', category: 'fun', submood: 'out', time: 'night', title: 'Movie Night', description: 'Pick something neither of you has seen and share the popcorn.' },
-  { id: 'fun-out-night-2', category: 'fun', submood: 'out', time: 'night', title: 'Cooking Class', description: 'Learn a new dish together — messy aprons and all.' },
-  { id: 'fun-out-night-3', category: 'fun', submood: 'out', time: 'night', title: 'Laser Show', description: 'Lie back and let the universe put on a show just for you.' },
+  // ── Fun / Out & About / Night ─────────────────────────────────────────────
+  {
+    id: 'fun-out-night-1', category: 'fun', submood: 'out', time: 'night',
+    title: 'Movie Night',
+    description: 'Pick something neither of you has seen and share the popcorn.',
+    image: 'https://source.unsplash.com/featured/?cinema',
+  },
+  {
+    id: 'fun-out-night-2', category: 'fun', submood: 'out', time: 'night',
+    title: 'Cooking Class',
+    description: 'Learn a new dish together — messy aprons and all.',
+    image: 'https://source.unsplash.com/featured/?cooking-class',
+  },
+  {
+    id: 'fun-out-night-3', category: 'fun', submood: 'out', time: 'night',
+    title: 'Laser Show',
+    description: 'Lie back and let the universe put on a show just for you.',
+    image: 'https://source.unsplash.com/featured/?laser-light',
+  },
 
-  // Fun / Creative / Day
-  { id: 'fun-creative-day-1', category: 'fun', submood: 'creative', time: 'day', title: 'The Jury Experience', description: 'Step into an immersive live theater courtroom drama and decide the verdict together.' },
+  // ── Fun / Creative / Day ─────────────────────────────────────────────────
+  {
+    id: 'fun-creative-day-1', category: 'fun', submood: 'creative', time: 'day',
+    title: 'The Jury Experience',
+    description: 'Step into an immersive live courtroom drama and decide the verdict together.',
+    image: 'https://source.unsplash.com/featured/?courtroom',
+  },
+  {
+    id: 'fun-creative-day-2', category: 'fun', submood: 'creative', time: 'day',
+    title: 'Scrapbooking Together',
+    description: "Dig out the photos, grab the glue, and build a little memory book of us.",
+    image: 'https://source.unsplash.com/featured/?scrapbook',
+  },
+  {
+    id: 'fun-creative-day-3', category: 'fun', submood: 'creative', time: 'day',
+    title: 'Master Chocolate Class',
+    description: 'Temper, mold, and taste your way through an afternoon of pure chocolate magic.',
+    image: 'https://source.unsplash.com/featured/?chocolate',
+  },
 
-  // Fun / Creative / Night
-  { id: 'fun-creative-night-1', category: 'fun', submood: 'creative', time: 'night', title: 'Artisans Playhouse', description: 'A night of live performance, creativity, and unexpected magic.' },
+  // ── Fun / Creative / Night ────────────────────────────────────────────────
+  {
+    id: 'fun-creative-night-1', category: 'fun', submood: 'creative', time: 'night',
+    title: 'Artisans Playhouse',
+    description: 'A night of live performance, creativity, and unexpected magic.',
+    image: 'https://source.unsplash.com/featured/?theater-stage',
+  },
+  {
+    id: 'fun-creative-night-2', category: 'fun', submood: 'creative', time: 'night',
+    title: 'Lego Night',
+    description: 'Pick a set, clear the table, and build something ridiculous together.',
+    image: 'https://source.unsplash.com/featured/?lego',
+  },
+  {
+    id: 'fun-creative-night-3', category: 'fun', submood: 'creative', time: 'night',
+    title: 'Jewelry Making Night',
+    description: 'Beads, wire, and a little patience — make something you can both wear.',
+    image: 'https://source.unsplash.com/featured/?jewelry-making',
+  },
 
-  // Adventure / Outdoors / Day
-  { id: 'adventure-outdoors-day-1', category: 'adventure', submood: 'outdoors', time: 'day', title: 'Kayaking', description: 'Paddle through calm waters and discover hidden spots together.' },
-  { id: 'adventure-outdoors-day-2', category: 'adventure', submood: 'outdoors', time: 'day', title: 'Hiking', description: 'Hit the trail, breathe fresh air, and earn that view at the top.' },
-  { id: 'adventure-outdoors-day-3', category: 'adventure', submood: 'outdoors', time: 'day', title: 'Archery', description: 'Channel your inner archer — steady aim, steady heart.' },
-  { id: 'adventure-outdoors-night-1', category: 'adventure', submood: 'outdoors', time: 'night', ...placeholder },
+  // ── Adventure / Outdoors / Day ────────────────────────────────────────────
+  {
+    id: 'adventure-outdoors-day-1', category: 'adventure', submood: 'outdoors', time: 'day',
+    title: 'Special Kayaking Experience',
+    description: 'Paddle through calm waters and discover hidden spots together.',
+    image: 'https://source.unsplash.com/featured/?kayaking',
+  },
+  {
+    id: 'adventure-outdoors-day-2', category: 'adventure', submood: 'outdoors', time: 'day',
+    title: 'Full Hiking Day + Picnic',
+    description: 'Hit the trail, breathe fresh air, and earn that view at the top — then picnic like royalty.',
+    image: 'https://source.unsplash.com/featured/?hiking',
+  },
+  {
+    id: 'adventure-outdoors-day-3', category: 'adventure', submood: 'outdoors', time: 'day',
+    title: 'Tigertail Aqua Challenge',
+    description: 'An inflatable obstacle course on the water — equal parts chaos and laughter.',
+    image: 'https://source.unsplash.com/featured/?water-sports',
+  },
 
-  // Adventure / Skill / Day
-  { id: 'adventure-skill-day-1', category: 'adventure', submood: 'skill', time: 'day', title: 'Dance Workshop', description: 'Learn new moves together and let the rhythm take over.' },
-  { id: 'adventure-skill-day-2', category: 'adventure', submood: 'skill', time: 'day', title: 'Axe Throwing', description: 'Release the stress and let the axes fly — competition optional.' },
-  { id: 'adventure-skill-day-3', category: 'adventure', submood: 'skill', time: 'day', title: 'Obstacle Course', description: 'Tackle every challenge as a team and cross the finish line together.' },
-  { id: 'adventure-skill-night-1', category: 'adventure', submood: 'skill', time: 'night', ...placeholder },
+  // ── Adventure / Outdoors / Night ──────────────────────────────────────────
+  {
+    id: 'adventure-outdoors-night-1', category: 'adventure', submood: 'outdoors', time: 'night',
+    title: 'Glow-in-the-Dark ATV Adventure',
+    description: 'Tear through trails in the dark with neon glowing all around you. Extreme optional.',
+    image: 'https://source.unsplash.com/featured/?atv-night',
+  },
+  {
+    id: 'adventure-outdoors-night-2', category: 'adventure', submood: 'outdoors', time: 'night',
+    title: 'Private Romantic Air Tour with Champagne',
+    description: 'Float above the city lights with a glass of champagne and nowhere else to be.',
+    image: 'https://source.unsplash.com/featured/?aerial-city-night',
+  },
 
-  // Adventure / Indoor / Day
-  { id: 'adventure-indoor-day-1', category: 'adventure', submood: 'indoor', time: 'day', title: 'Rock Climbing', description: 'Scale new heights and trust each other every step of the way.' },
-  { id: 'adventure-indoor-day-2', category: 'adventure', submood: 'indoor', time: 'day', title: 'Escape Room', description: 'Crack the clues, beat the clock, and escape together (hopefully).' },
-  { id: 'adventure-indoor-day-3', category: 'adventure', submood: 'indoor', time: 'day', title: 'VR Experience', description: 'Step into another world, side by side, no passport required.' },
-  { id: 'adventure-indoor-night-1', category: 'adventure', submood: 'indoor', time: 'night', ...placeholder },
+  // ── Adventure / Indoor / Day ──────────────────────────────────────────────
+  {
+    id: 'adventure-indoor-day-1', category: 'adventure', submood: 'indoor', time: 'day',
+    title: 'Velocity Rock Climbing',
+    description: 'Scale the wall, trust the belay, and cheer each other to the top.',
+    image: 'https://source.unsplash.com/featured/?rock-climbing',
+  },
 
-  // Food / Home Cooked / Day
-  { id: 'food-homecooked-day-1', category: 'food', submood: 'homecooked', time: 'day', title: 'Backyard Coffee + Pastries (+ pasties 😏)', description: 'A slow morning, good coffee, flaky pastries, and even flakier company.' },
-  { id: 'food-homecooked-day-2', category: 'food', submood: 'homecooked', time: 'day', title: 'Waffle Bar + Mimosas', description: 'Build-your-own waffles, bottomless mimosas, and absolutely no rush.' },
-  { id: 'food-homecooked-day-3', category: 'food', submood: 'homecooked', time: 'day', title: 'Crepe Station + Rosé', description: 'Sweet and savory crepes with a glass of something pink and perfect.' },
+  // ── Adventure / Indoor / Night ────────────────────────────────────────────
+  {
+    id: 'adventure-indoor-night-1', category: 'adventure', submood: 'indoor', time: 'night',
+    title: 'NightLAB at Frost Science',
+    description: 'The museum after dark — cocktails, exhibits, and a planetarium show overhead.',
+    image: 'https://source.unsplash.com/featured/?planetarium',
+  },
+  {
+    id: 'adventure-indoor-night-2', category: 'adventure', submood: 'indoor', time: 'night',
+    title: 'Just Us — Clubbing Night',
+    description: 'Just the two of you on the dance floor. No plan. Just music and movement.',
+    image: 'https://source.unsplash.com/featured/?nightclub',
+  },
 
-  // Food / Home Cooked / Night
-  { id: 'food-homecooked-night-1', category: 'food', submood: 'homecooked', time: 'night', title: 'Homemade Pasta from Scratch', description: 'Roll the dough, choose your sauce, and make dinner a full event.' },
-  { id: 'food-homecooked-night-2', category: 'food', submood: 'homecooked', time: 'night', title: 'Mezze & Wine Night', description: 'Spread out a feast of dips, bites, and breads and graze the night away.' },
+  // ── Food / In / Day ───────────────────────────────────────────────────────
+  {
+    id: 'food-in-day-1', category: 'food', submood: 'in', time: 'day',
+    title: 'Backyard Coffee + Pastries',
+    description: 'A slow morning, good coffee, flaky pastries, and even flakier company. (+ pasties 😏)',
+    image: 'https://source.unsplash.com/featured/?coffee-pastry',
+  },
+  {
+    id: 'food-in-day-2', category: 'food', submood: 'in', time: 'day',
+    title: 'Waffle Bar + Mimosas',
+    description: 'Build-your-own waffles, bottomless mimosas, and absolutely no rush.',
+    image: 'https://source.unsplash.com/featured/?waffles',
+  },
+  {
+    id: 'food-in-day-3', category: 'food', submood: 'in', time: 'day',
+    title: 'Crepe Station + Rosé',
+    description: 'Sweet and savory crepes with a glass of something pink and perfect.',
+    image: 'https://source.unsplash.com/featured/?crepes',
+  },
 
-  // Food / Fancy / Day
-  { id: 'food-fancy-day-1', category: 'food', submood: 'fancy', time: 'day', ...placeholder },
+  // ── Food / In / Night ─────────────────────────────────────────────────────
+  {
+    id: 'food-in-night-1', category: 'food', submood: 'in', time: 'night',
+    title: 'Homemade Pasta from Scratch',
+    description: 'Roll the dough, choose your sauce, and make dinner a full event.',
+    image: 'https://source.unsplash.com/featured/?pasta-making',
+  },
+  {
+    id: 'food-in-night-2', category: 'food', submood: 'in', time: 'night',
+    title: 'Mezze & Wine Night',
+    description: 'Spread out a feast of dips, bites, and breads and graze the night away.',
+    image: 'https://source.unsplash.com/featured/?mezze',
+  },
+  {
+    id: 'food-in-night-3', category: 'food', submood: 'in', time: 'night',
+    title: "Chef's Food Roulette 🎲",
+    description: 'Spin the wheel, pick random ingredients, and cook something totally unplanned together.',
+    image: 'https://source.unsplash.com/featured/?cooking',
+  },
 
-  // Food / Fancy / Night
-  { id: 'food-fancy-night-1', category: 'food', submood: 'fancy', time: 'night', ...placeholder },
+  // ── Food / Out / Day ──────────────────────────────────────────────────────
+  {
+    id: 'food-out-day-1', category: 'food', submood: 'out', time: 'day',
+    title: "Chuy's for Chalupa",
+    description: 'Dive into cheesy, saucy Tex-Mex comfort at the best booth in town.',
+    image: 'https://source.unsplash.com/featured/?mexican-food',
+  },
+  {
+    id: 'food-out-day-2', category: 'food', submood: 'out', time: 'day',
+    title: "Frankie & Wally's",
+    description: 'A neighborhood gem for relaxed bites and easy conversation.',
+    image: 'https://source.unsplash.com/featured/?restaurant',
+  },
+  {
+    id: 'food-out-day-3', category: 'food', submood: 'out', time: 'day',
+    title: "Sunny's",
+    description: 'Bright, laid-back, and exactly right for a daytime eat-out that feels like a treat.',
+    image: 'https://source.unsplash.com/featured/?brunch',
+  },
 
-  // Food / Cozy / Day
-  { id: 'food-cozy-day-1', category: 'food', submood: 'cozy', time: 'day', title: "Chuy's for Chalupa", description: 'Dive into cheesy, saucy Tex-Mex comfort at the best booth in town.' },
-  { id: 'food-cozy-day-2', category: 'food', submood: 'cozy', time: 'day', title: "Frankie & Wally's", description: 'A neighborhood gem for relaxed, cozy bites and easy conversation.' },
+  // ── Food / Out / Night ────────────────────────────────────────────────────
+  {
+    id: 'food-out-night-1', category: 'food', submood: 'out', time: 'night',
+    title: 'Hiyakawa',
+    description: 'Sleek omakase vibes, impeccable fish, and a night that feels quietly special.',
+    image: 'https://source.unsplash.com/featured/?sushi',
+  },
+  {
+    id: 'food-out-night-2', category: 'food', submood: 'out', time: 'night',
+    title: 'Aviv',
+    description: 'Modern Israeli flavors in a setting that earns every candle on the table.',
+    image: 'https://source.unsplash.com/featured/?fine-dining',
+  },
+  {
+    id: 'food-out-night-3', category: 'food', submood: 'out', time: 'night',
+    title: "L'Atelier",
+    description: 'Counter dining at its finest — watch the kitchen and eat something extraordinary.',
+    image: 'https://source.unsplash.com/featured/?french-restaurant',
+  },
 
-  // Food / Cozy / Night
-  { id: 'food-cozy-night-1', category: 'food', submood: 'cozy', time: 'night', ...placeholder },
-
-  // Road Trips
-  { id: 'roadtrip-tortuga', category: 'roadtrip', submood: null, time: 'any', title: 'Tortuga Seaplane', description: 'Take off from the water and soar over turquoise seas to a secret island paradise.', roadTripCode: 'tortuga' },
-  { id: 'roadtrip-vegas', category: 'roadtrip', submood: null, time: 'any', title: 'Vegas — The Sphere + RuPaul', description: 'Viva Las Vegas: a mind-bending show inside the world\'s largest screen, plus a legendary drag queen.', roadTripCode: 'vegas' },
-  { id: 'roadtrip-nola', category: 'roadtrip', submood: null, time: 'any', title: 'Beignets in New Orleans', description: 'Powdered sugar on your nose, jazz in the air, and the magic of the Quarter all around you.', roadTripCode: 'nola' },
+  // ── Road Trips ────────────────────────────────────────────────────────────
+  {
+    id: 'roadtrip-tortuga', category: 'roadtrip', submood: null, time: 'any',
+    title: 'Tortuga Seaplane',
+    description: 'Take off from the water and soar over turquoise seas to a secret island paradise.',
+    image: 'https://source.unsplash.com/featured/?seaplane',
+    roadTripCode: 'tortuga',
+  },
+  {
+    id: 'roadtrip-vegas', category: 'roadtrip', submood: null, time: 'any',
+    title: 'Vegas — The Sphere + RuPaul',
+    description: "Viva Las Vegas: a mind-bending show inside the world's largest screen, plus a legendary drag queen.",
+    image: 'https://source.unsplash.com/featured/?las-vegas',
+    roadTripCode: 'vegas',
+  },
+  {
+    id: 'roadtrip-nola', category: 'roadtrip', submood: null, time: 'any',
+    title: 'Beignets in New Orleans',
+    description: 'Powdered sugar on your nose, jazz in the air, and the magic of the Quarter all around you.',
+    image: 'https://source.unsplash.com/featured/?new-orleans',
+    roadTripCode: 'nola',
+  },
+  {
+    id: 'roadtrip-glassblowing', category: 'roadtrip', submood: null, time: 'any',
+    title: 'Zen Glass Studios — St. Pete',
+    description: 'Watch molten glass become art at the hands of a master, then try it yourself. Beautiful chaos.',
+    image: 'https://source.unsplash.com/featured/?glassblowing',
+    roadTripCode: 'glassblowing',
+  },
 ]
 
 export function getDateOptions(category, submood, time) {
