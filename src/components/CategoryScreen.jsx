@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion'
 import { categories, dates } from '../data/dates'
+import bgDay from '../assets/Daytime.jpg'
+import bgNight from '../assets/Nightime.jpg'
 
 const cardColors = {
   romance:  { bg: '#FFF0EE', border: '#E8A598', emoji_bg: '#FFE0DC', text: '#7A3828' },
@@ -121,9 +123,17 @@ export default function CategoryScreen({ onSelect, onRoadTripLocked, unlockedRoa
       exit={{ opacity: 0, x: -40 }}
       transition={{ duration: 0.3 }}
       className="flex flex-col min-h-full"
-      style={{ background: '#FFF8E7', padding: '0 0 36px' }}
+      style={{ background: '#FFF8E7', padding: '0 0 36px', position: 'relative', overflow: 'hidden' }}
     >
-      <div style={{ padding: '48px 24px 24px' }}>
+      {/* Time-of-day background */}
+      <div style={{
+        position: 'absolute', inset: 0, pointerEvents: 'none',
+        backgroundImage: `url(${time === 'night' ? bgNight : bgDay})`,
+        backgroundSize: 'cover', backgroundPosition: 'center',
+        opacity: 0.1,
+      }} />
+
+      <div style={{ padding: '48px 24px 24px', position: 'relative' }}>
         <h2 className="font-display" style={{ fontSize: 34, color: '#3D2B0A', lineHeight: 1.2 }}>
           What kind of<br />adventure?
         </h2>
@@ -136,7 +146,7 @@ export default function CategoryScreen({ onSelect, onRoadTripLocked, unlockedRoa
         variants={container}
         initial="hidden"
         animate="show"
-        style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, padding: '0 24px' }}
+        style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, padding: '0 24px', position: 'relative' }}
       >
         {categories.map(cat => (
           <motion.div key={cat.id} variants={item} style={cat.id === 'roadtrip' ? { gridColumn: '1 / -1' } : {}}>

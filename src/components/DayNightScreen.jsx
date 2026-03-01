@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import EnchantedScene, { DAY_PALETTE, NIGHT_PALETTE } from './EnchantedScene'
+import bgDefault from '../assets/landing.jpg'
+import bgDay from '../assets/Daytime.jpg'
+import bgNight from '../assets/Nightime.jpg'
 
 export default function DayNightScreen({ onSelect }) {
   const [selected, setSelected] = useState(null)
@@ -15,45 +17,29 @@ export default function DayNightScreen({ onSelect }) {
       transition={{ duration: 0.35 }}
       style={{ minHeight: '100dvh', position: 'relative', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}
     >
-      {/* Day scene */}
-      <motion.div
-        animate={{ opacity: isNight ? 0 : 1 }}
-        transition={{ duration: 1.5 }}
-        style={{ position: 'absolute', inset: 0 }}
-      >
-        <EnchantedScene p={DAY_PALETTE} />
-      </motion.div>
+      {/* Default background */}
+      <div style={{ position: 'absolute', inset: 0, backgroundImage: `url(${bgDefault})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
 
-      {/* Night scene */}
+      {/* Daytime layer */}
       <motion.div
-        animate={{ opacity: isNight ? 1 : 0 }}
-        transition={{ duration: 1.5 }}
-        style={{ position: 'absolute', inset: 0 }}
-      >
-        <EnchantedScene p={NIGHT_PALETTE} />
-      </motion.div>
-
-      {/* Day bottom overlay */}
-      <motion.div
-        animate={{ opacity: isNight ? 0 : 1 }}
-        transition={{ duration: 1.5 }}
-        style={{
-          position: 'absolute', bottom: 0, left: 0, right: 0, height: '54%',
-          background: 'linear-gradient(0deg, rgba(20,8,50,0.96) 0%, rgba(20,8,50,0.6) 52%, transparent 100%)',
-          pointerEvents: 'none', zIndex: 5,
-        }}
+        animate={{ opacity: selected === 'day' ? 1 : 0 }}
+        transition={{ duration: 1.4, ease: 'easeInOut' }}
+        style={{ position: 'absolute', inset: 0, backgroundImage: `url(${bgDay})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
       />
 
-      {/* Night bottom overlay */}
+      {/* Nighttime layer */}
       <motion.div
-        animate={{ opacity: isNight ? 1 : 0 }}
-        transition={{ duration: 1.5 }}
-        style={{
-          position: 'absolute', bottom: 0, left: 0, right: 0, height: '54%',
-          background: 'linear-gradient(0deg, rgba(4,2,14,0.97) 0%, rgba(4,2,14,0.62) 52%, transparent 100%)',
-          pointerEvents: 'none', zIndex: 5,
-        }}
+        animate={{ opacity: selected === 'night' ? 1 : 0 }}
+        transition={{ duration: 1.4, ease: 'easeInOut' }}
+        style={{ position: 'absolute', inset: 0, backgroundImage: `url(${bgNight})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
       />
+
+      {/* Bottom overlay */}
+      <div style={{
+        position: 'absolute', bottom: 0, left: 0, right: 0, height: '54%',
+        background: 'linear-gradient(0deg, rgba(20,8,50,0.96) 0%, rgba(20,8,50,0.6) 52%, transparent 100%)',
+        pointerEvents: 'none', zIndex: 5,
+      }} />
 
       {/* UI controls — overlaid at bottom */}
       <div style={{

@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import EnchantedScene, { LANDING_PALETTE } from './EnchantedScene'
+import bgImage from '../assets/Landing1.jpg'
 
 export default function LandingScreen({ onStart }) {
   return (
@@ -11,8 +11,12 @@ export default function LandingScreen({ onStart }) {
       transition={{ duration: 0.5 }}
       style={{ minHeight: '100dvh', position: 'relative', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}
     >
-      {/* Full-screen illustration */}
-      <EnchantedScene p={LANDING_PALETTE} />
+      {/* Background image */}
+      <div style={{
+        position: 'absolute', inset: 0,
+        backgroundImage: `url(${bgImage})`,
+        backgroundSize: 'cover', backgroundPosition: 'center',
+      }} />
 
       {/* Readability gradient at bottom */}
       <div style={{
@@ -21,43 +25,52 @@ export default function LandingScreen({ onStart }) {
         pointerEvents: 'none', zIndex: 5,
       }} />
 
-      {/* Content overlaid on top */}
+      {/* Top — egg, welcome, title, subtitle */}
       <div style={{
         position: 'relative', zIndex: 10,
-        flex: 1, minHeight: '100dvh',
-        display: 'flex', flexDirection: 'column', justifyContent: 'flex-end',
-        padding: '0 20px 52px',
+        display: 'flex', flexDirection: 'column', alignItems: 'center',
+        paddingTop: 64, padding: '64px 20px 0',
       }}>
-        {/* Floating egg */}
         <motion.div
           animate={{ y: [0, -8, 0] }}
           transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
           style={{
-            textAlign: 'center', fontSize: 64, marginBottom: 14,
+            fontSize: 64, marginBottom: 12,
             filter: 'drop-shadow(0 0 22px rgba(248,150,18,0.72))',
           }}
         >
           🥚
         </motion.div>
-
+        <p style={{
+          fontSize: 13, fontWeight: 700, marginBottom: 6,
+          color: 'rgba(220,190,255,0.75)', letterSpacing: '0.04em',
+        }}>
+          Welcome to
+        </p>
         <h1
           className="font-display"
           style={{
-            fontSize: 52, lineHeight: 1, textAlign: 'center', marginBottom: 8,
+            fontSize: 52, lineHeight: 1, textAlign: 'center', marginBottom: 14,
             color: '#FFE580',
             textShadow: '0 2px 30px rgba(248,150,18,0.65), 0 4px 60px rgba(100,40,200,0.4)',
           }}
         >
           Eggventure
         </h1>
-
         <p style={{
-          textAlign: 'center', fontSize: 14, fontWeight: 600, marginBottom: 32,
+          textAlign: 'center', fontSize: 14, fontWeight: 600,
           color: 'rgba(220,190,255,0.75)',
         }}>
-          Choose your adventure
+          A little world of dates, made just for you.
         </p>
+      </div>
 
+      {/* Bottom — button */}
+      <div style={{
+        position: 'relative', zIndex: 10,
+        flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end',
+        padding: '0 20px 52px',
+      }}>
         <motion.button
           whileTap={{ scale: 0.97 }}
           onClick={onStart}
@@ -68,7 +81,7 @@ export default function LandingScreen({ onStart }) {
             boxShadow: '0 8px 32px rgba(248,150,18,0.52)',
           }}
         >
-          Start your adventure 🥚
+          Begin your adventure →
         </motion.button>
       </div>
     </motion.div>

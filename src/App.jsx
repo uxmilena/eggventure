@@ -4,6 +4,7 @@ import { useGameState } from './hooks/useGameState'
 import { getDateOptions, dates, ROAD_TRIP_CODES } from './data/dates'
 import { riddles } from './data/riddles'
 import LandingScreen from './components/LandingScreen'
+import HowToPlayScreen from './components/HowToPlayScreen'
 import RiddleScreen from './components/RiddleScreen'
 import DayNightScreen from './components/DayNightScreen'
 import CategoryScreen from './components/CategoryScreen'
@@ -12,8 +13,9 @@ import DateRevealScreen from './components/DateRevealScreen'
 import RoadTripModal from './components/RoadTripModal'
 
 const SCREENS = {
-  LANDING:  'landing',
-  RIDDLE:   'riddle',
+  LANDING:   'landing',
+  HOWTOPLAY: 'howtoplay',
+  RIDDLE:    'riddle',
   DAYNIGHT: 'daynight',
   CATEGORY: 'category',
   SUBMOOD:  'submood',
@@ -43,6 +45,10 @@ export default function App() {
   // ── Navigation handlers ────────────────────────────────────────────────
 
   function handleStart() {
+    setScreen(SCREENS.HOWTOPLAY)
+  }
+
+  function handleHowToPlayContinue() {
     setScreen(SCREENS.RIDDLE)
   }
 
@@ -125,6 +131,12 @@ export default function App() {
           </div>
         )}
 
+        {screen === SCREENS.HOWTOPLAY && (
+          <div key="howtoplay" style={{ flex: 1, overflowY: 'auto', minHeight: '100%' }}>
+            <HowToPlayScreen onContinue={handleHowToPlayContinue} />
+          </div>
+        )}
+
         {screen === SCREENS.RIDDLE && (
           <div key="riddle" style={{ flex: 1, minHeight: '100%' }}>
             <RiddleScreen
@@ -158,6 +170,7 @@ export default function App() {
           <div key="submood" style={{ flex: 1, overflowY: 'auto', minHeight: '100%' }}>
             <SubMoodScreen
               category={category}
+              time={time}
               onSelect={handleSubMoodSelect}
               onBack={handleBackFromSubMood}
             />

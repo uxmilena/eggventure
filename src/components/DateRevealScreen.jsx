@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import BookingModal from './BookingModal'
+import bgDay from '../assets/Daytime.jpg'
+import bgNight from '../assets/Nightime.jpg'
 
 const categoryEmojis = {
   romance:  '🌹',
@@ -45,6 +47,16 @@ export default function DateRevealScreen({ date, onDone }) {
         position: 'relative', overflow: 'hidden',
       }}
     >
+      {/* Time-of-day background (non-road-trip only) */}
+      {!isRoadTrip && (
+        <div style={{
+          position: 'absolute', inset: 0, pointerEvents: 'none',
+          backgroundImage: `url(${date.time === 'night' ? bgNight : bgDay})`,
+          backgroundSize: 'cover', backgroundPosition: 'center',
+          opacity: 0.1,
+        }} />
+      )}
+
       {/* Road trip stars */}
       {isRoadTrip && RT_STARS.map(s => (
         <motion.div
