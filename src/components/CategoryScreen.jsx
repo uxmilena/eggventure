@@ -124,12 +124,6 @@ export default function CategoryScreen({ onSelect, onRoadTripLocked, unlockedRoa
       style={{ background: '#FFF8E7', padding: '0 0 36px' }}
     >
       <div style={{ padding: '48px 24px 24px' }}>
-        <button
-          onClick={onBack}
-          style={{ background: 'none', border: 'none', padding: 0, fontSize: 14, color: '#C4A882', display: 'flex', alignItems: 'center', gap: 4, marginBottom: 20, fontWeight: 700 }}
-        >
-          ← Back
-        </button>
         <h2 className="font-display" style={{ fontSize: 34, color: '#3D2B0A', lineHeight: 1.2 }}>
           What kind of<br />adventure?
         </h2>
