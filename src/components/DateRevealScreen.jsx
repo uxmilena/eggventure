@@ -27,7 +27,7 @@ const RT_STARS = [
   { id: 8, x: 92, y: 12, s: 1.4, d: 1.0 }, { id: 9, x: 48, y: 28, s: 1.1, d: 0.6 },
 ]
 
-export default function DateRevealScreen({ date, onDone, onPickAgain }) {
+export default function DateRevealScreen({ date, onDone }) {
   const [showBooking, setShowBooking] = useState(false)
   const colors     = categoryColors[date.category] || categoryColors.fun
   const isRoadTrip = date.category === 'roadtrip'
@@ -103,22 +103,6 @@ export default function DateRevealScreen({ date, onDone, onPickAgain }) {
         >
           Let's do this 🥚
         </motion.button>
-        {onPickAgain && (
-          <motion.button
-            initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.45 }}
-            whileTap={{ scale: 0.97 }}
-            onClick={onPickAgain}
-            style={{
-              width: '100%', padding: '16px 0', borderRadius: 999,
-              border: `1.5px solid ${isRoadTrip ? 'rgba(255,255,255,0.18)' : 'rgba(92,61,30,0.15)'}`,
-              background: 'transparent',
-              color: isRoadTrip ? 'rgba(255,220,120,0.65)' : '#8B6340',
-              fontSize: 15, fontWeight: 700,
-            }}
-          >
-            Pick again 🔄
-          </motion.button>
-        )}
       </div>
       {/* Booking modal */}
       <AnimatePresence>

@@ -89,23 +89,11 @@ export default function App() {
 
   function handleDone(dateId) {
     markDateDone(dateId)
-    // After done, go back to category (keep time selection)
+    setTime(null)
     setCategory(null)
     setSubmood(null)
     setSelectedDate(null)
-    setScreen(SCREENS.CATEGORY)
-  }
-
-  function handlePickAgain() {
-    // Go back to SubMood (same category, keep time)
-    setSubmood(null)
-    setSelectedDate(null)
-    if (category === 'roadtrip') {
-      setCategory(null)
-      setScreen(SCREENS.CATEGORY)
-    } else {
-      setScreen(SCREENS.SUBMOOD)
-    }
+    setScreen(SCREENS.LANDING)
   }
 
   function handleBackFromCategory() {
@@ -181,7 +169,6 @@ export default function App() {
             <DateRevealScreen
               date={selectedDate}
               onDone={handleDone}
-              onPickAgain={handlePickAgain}
             />
           </div>
         )}
