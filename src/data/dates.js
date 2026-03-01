@@ -9,7 +9,7 @@ export const categories = [
   { id: 'fun', label: 'Fun', emoji: '😄', color: 'bg-yellow-100', border: 'border-yellow-200', text: 'text-yellow-700' },
   { id: 'adventure', label: 'Adventure', emoji: '🌿', color: 'bg-green-100', border: 'border-green-200', text: 'text-green-700' },
   { id: 'food', label: 'Food', emoji: '🍜', color: 'bg-orange-100', border: 'border-orange-200', text: 'text-orange-700' },
-  { id: 'roadtrip', label: 'Road Trip', emoji: '🚗', color: 'bg-slate-100', border: 'border-slate-200', text: 'text-slate-600', locked: true },
+  { id: 'roadtrip', label: 'Secret Special Dates', emoji: '✨', color: 'bg-slate-100', border: 'border-slate-200', text: 'text-slate-600', locked: true },
 ]
 
 export const subMoods = {

@@ -72,13 +72,23 @@ export default function RoadTripModal({ onClose, onUnlock, unlockedRoadTrips }) 
           <div style={{ width: 40, height: 4, background: '#E8DCC8', borderRadius: 99, margin: '0 auto 24px' }} />
 
           <div style={{ textAlign: 'center', marginBottom: 24 }}>
-            <div style={{ fontSize: 50, marginBottom: 12 }}>🚗</div>
-            <h2 className="font-display" style={{ fontSize: 26, color: '#3D2B0A' }}>
-              {success ? 'Road Trip Unlocked! 🎉' : 'Secret Road Trip'}
-            </h2>
-            <p style={{ fontSize: 14, color: '#8B6340', marginTop: 8, fontWeight: 600 }}>
-              {success ? 'Pack your bags — adventure awaits!' : 'Got a code? Enter it to unlock a surprise adventure.'}
-            </p>
+            <div style={{ fontSize: 50, marginBottom: 12 }}>🗺️</div>
+            {success ? (
+              <>
+                <h2 className="font-display" style={{ fontSize: 26, color: '#3D2B0A' }}>Adventure Unlocked! 🎉</h2>
+                <p style={{ fontSize: 14, color: '#8B6340', marginTop: 8, fontWeight: 600 }}>Pack your bags — something special awaits!</p>
+              </>
+            ) : (
+              <>
+                <h2 className="font-display" style={{ fontSize: 24, color: '#3D2B0A', lineHeight: 1.3, marginBottom: 10 }}>
+                  Psst… you found something, didn't you?
+                </h2>
+                <p style={{ fontSize: 14, color: '#8B6340', fontWeight: 600, lineHeight: 1.7 }}>
+                  A little bird told me there's an adventure waiting for you.<br />
+                  If you have a secret code, whisper it here…
+                </p>
+              </>
+            )}
           </div>
 
           {!success ? (
@@ -89,7 +99,7 @@ export default function RoadTripModal({ onClose, onUnlock, unlockedRoadTrips }) 
                 type="text"
                 value={code}
                 onChange={e => { setCode(e.target.value); setError('') }}
-                placeholder="Enter your code…"
+                placeholder="Whisper your code…"
                 style={{
                   width: '100%', padding: '16px 18px', borderRadius: 16,
                   border: `2.5px solid ${error ? '#E8A598' : '#F0E4C8'}`,

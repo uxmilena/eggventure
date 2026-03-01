@@ -24,11 +24,52 @@ function CategoryCard({ cat, onSelect, unlockedRoadTrips, onLocked, time, comple
   const colors    = cardColors[cat.id]
   const isLocked  = cat.locked && unlockedRoadTrips.length === 0
   const exhausted = !isLocked && isCategoryExhausted(cat.id, time, completedDates)
+  const isWide    = cat.id === 'roadtrip'
 
   function handlePress() {
     if (isLocked) return onLocked()
     if (exhausted) return
     onSelect(cat.id)
+  }
+
+  if (isWide) {
+    return (
+      <motion.button
+        whileTap={!exhausted ? { scale: 0.97 } : {}}
+        whileHover={!exhausted ? { scale: 1.01, y: -2 } : {}}
+        onClick={handlePress}
+        style={{
+          background: exhausted ? '#F5F0E8' : colors.bg,
+          border: `2.5px solid ${exhausted ? '#E0D8C8' : colors.border}`,
+          borderRadius: 24,
+          padding: '20px 24px',
+          display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 18,
+          boxShadow: '0 3px 14px rgba(92,61,30,0.09)',
+          opacity: isLocked ? 0.65 : 1,
+          filter: isLocked ? 'grayscale(0.2)' : 'none',
+          transition: 'opacity 0.2s',
+          width: '100%',
+          cursor: exhausted ? 'default' : 'pointer',
+        }}
+      >
+        <div style={{ width: 56, height: 56, background: exhausted ? '#EDE8DC' : colors.emoji_bg, borderRadius: 18, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 28, flexShrink: 0 }}>
+          {isLocked ? '🔒' : exhausted ? '🥺' : cat.emoji}
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 4 }}>
+          <span style={{ fontSize: 16, fontWeight: 700, color: exhausted ? '#C4A882' : colors.text }}>{cat.label}</span>
+          {isLocked && (
+            <span style={{ fontSize: 10, color: '#C4A882', fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+              Enter code to unlock
+            </span>
+          )}
+          {exhausted && (
+            <span style={{ fontSize: 10, color: '#C4A882', fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+              More coming soon
+            </span>
+          )}
+        </div>
+      </motion.button>
+    )
   }
 
   return (
@@ -104,7 +145,7 @@ export default function CategoryScreen({ onSelect, onRoadTripLocked, unlockedRoa
         style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, padding: '0 24px' }}
       >
         {categories.map(cat => (
-          <motion.div key={cat.id} variants={item}>
+          <motion.div key={cat.id} variants={item} style={cat.id === 'roadtrip' ? { gridColumn: '1 / -1' } : {}}>
             <CategoryCard
               cat={cat}
               onSelect={onSelect}
