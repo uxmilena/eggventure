@@ -47,13 +47,13 @@ export default function DateRevealScreen({ date, onDone, onWait }) {
         position: 'relative', overflow: 'hidden',
       }}
     >
-      {/* Time-of-day background (non-road-trip only) */}
+      {/* Background image (non-road-trip only) */}
       {!isRoadTrip && (
         <div style={{
           position: 'absolute', inset: 0, pointerEvents: 'none',
-          backgroundImage: `url(${date.time === 'night' ? bgNight : bgDay})`,
+          backgroundImage: `url(${date.image || (date.time === 'night' ? bgNight : bgDay)})`,
           backgroundSize: 'cover', backgroundPosition: 'center',
-          opacity: 0.1,
+          opacity: date.image ? 0.18 : 0.1,
         }} />
       )}
 

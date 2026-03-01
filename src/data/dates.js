@@ -1,3 +1,5 @@
+import kampongImg from '../assets/kampong-bunster-Garden-Theater-2.png'
+
 export const ROAD_TRIP_CODES = {
   TURTLES: 'tortuga',
   HANGOVER: 'vegas',
@@ -37,8 +39,8 @@ export const dates = [
   {
     id: 'romance-nice-day-1', category: 'romance', submood: 'nice', time: 'day',
     title: 'Ikebana Workshop at Kampong',
-    description: 'A slow, beautiful morning arranging flowers together in a botanical paradise.',
-    image: 'https://source.unsplash.com/featured/?flower-arrangement',
+    description: "We'll begin with a guided walk through the garden and a conversation on mindful, regenerative design. Participants will be allowed to clip flowers, leaves and branches from designated plants that grow abundantly on the property (clippers are provided).\n\nThe second part of the workshop will introduce the fundamentals of Ikebana, the Japanese art of floral arrangement, using the foraged materials gathered from the garden. Each participant will create their own arrangement to take home along with a still life photo of their creation.",
+    image: kampongImg,
   },
   {
     id: 'romance-nice-day-2', category: 'romance', submood: 'nice', time: 'day',
