@@ -10,22 +10,13 @@ function ConfettiPiece({ x, color, delay }) {
       initial={{ y: -20, x, opacity: 1, rotate: 0 }}
       animate={{ y: 420, x: x + (Math.random() - 0.5) * 120, opacity: 0, rotate: Math.random() * 720 }}
       transition={{ duration: 1.8, delay, ease: 'easeIn' }}
-      style={{
-        position: 'absolute',
-        top: 0,
-        left: '50%',
-        width: 8,
-        height: 8,
-        background: color,
-        borderRadius: Math.random() > 0.5 ? '50%' : 2,
-        pointerEvents: 'none',
-      }}
+      style={{ position: 'absolute', top: 0, left: '50%', width: 8, height: 8, background: color, borderRadius: Math.random() > 0.5 ? '50%' : 2, pointerEvents: 'none' }}
     />
   )
 }
 
-const CONFETTI_COLORS = ['#ff6b9d', '#ffe066', '#43e97b', '#a29bfe', '#ff8c42', '#38f9d7']
-const CONFETTI = Array.from({ length: 30 }, (_, i) => ({
+const CONFETTI_COLORS = ['#F5C842', '#E8A598', '#8FAF6A', '#F0A868', '#FFF3C0', '#5C3D1E']
+const CONFETTI = Array.from({ length: 32 }, (_, i) => ({
   id: i,
   x: (Math.random() - 0.5) * 200,
   color: CONFETTI_COLORS[i % CONFETTI_COLORS.length],
@@ -33,8 +24,8 @@ const CONFETTI = Array.from({ length: 30 }, (_, i) => ({
 }))
 
 export default function RoadTripModal({ onClose, onUnlock, unlockedRoadTrips }) {
-  const [code, setCode] = useState('')
-  const [error, setError] = useState('')
+  const [code, setCode]       = useState('')
+  const [error, setError]     = useState('')
   const [success, setSuccess] = useState(false)
   const [confetti, setConfetti] = useState(false)
   const [shaking, setShaking] = useState(false)
@@ -49,13 +40,10 @@ export default function RoadTripModal({ onClose, onUnlock, unlockedRoadTrips }) 
       setTimeout(() => setShaking(false), 500)
       return
     }
-
     if (unlockedRoadTrips.includes(normalized)) {
       setError("You've already unlocked this one! 🎉")
       return
     }
-
-    // Valid new code!
     setError('')
     setSuccess(true)
     setConfetti(true)
@@ -67,52 +55,28 @@ export default function RoadTripModal({ onClose, onUnlock, unlockedRoadTrips }) 
     <AnimatePresence>
       <motion.div
         key="rt-backdrop"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        style={{
-          position: 'fixed',
-          inset: 0,
-          background: 'rgba(30,16,48,0.7)',
-          display: 'flex',
-          alignItems: 'flex-end',
-          justifyContent: 'center',
-          zIndex: 200,
-          padding: '0 0 0 0',
-        }}
+        initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+        style={{ position: 'fixed', inset: 0, background: 'rgba(61,43,10,0.65)', display: 'flex', alignItems: 'flex-end', justifyContent: 'center', zIndex: 200 }}
         onClick={e => { if (e.target === e.currentTarget) onClose() }}
       >
         <motion.div
           key="rt-sheet"
-          initial={{ y: '100%' }}
-          animate={{ y: 0 }}
-          exit={{ y: '100%' }}
-          transition={{ type: 'spring', stiffness: 320, damping: 32 }}
-          style={{
-            background: '#fff',
-            borderRadius: '28px 28px 0 0',
-            padding: '32px 28px 48px',
-            width: '100%',
-            maxWidth: 430,
-            position: 'relative',
-            overflow: 'hidden',
-          }}
+          initial={{ y: '100%' }} animate={{ y: 0 }} exit={{ y: '100%' }}
+          transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+          style={{ background: '#FFF8E7', borderRadius: '32px 32px 0 0', padding: '32px 28px 52px', width: '100%', maxWidth: 430, position: 'relative', overflow: 'hidden' }}
         >
-          {/* Confetti layer */}
           {confetti && CONFETTI.map(c => <ConfettiPiece key={c.id} {...c} />)}
 
-          {/* Drag handle */}
-          <div style={{ width: 40, height: 4, background: '#e2d5f5', borderRadius: 99, margin: '0 auto 24px' }} />
+          {/* Handle */}
+          <div style={{ width: 40, height: 4, background: '#E8DCC8', borderRadius: 99, margin: '0 auto 24px' }} />
 
           <div style={{ textAlign: 'center', marginBottom: 24 }}>
-            <div style={{ fontSize: 48, marginBottom: 12 }}>🚗</div>
-            <h2 className="font-display" style={{ fontSize: 24, fontWeight: 700, color: '#1e1030' }}>
+            <div style={{ fontSize: 50, marginBottom: 12 }}>🚗</div>
+            <h2 className="font-display" style={{ fontSize: 26, color: '#3D2B0A' }}>
               {success ? 'Road Trip Unlocked! 🎉' : 'Secret Road Trip'}
             </h2>
-            <p style={{ fontSize: 14, color: '#7c6a9e', marginTop: 8 }}>
-              {success
-                ? 'Pack your bags — adventure awaits!'
-                : 'Got a code? Enter it to unlock a surprise adventure.'}
+            <p style={{ fontSize: 14, color: '#8B6340', marginTop: 8, fontWeight: 600 }}>
+              {success ? 'Pack your bags — adventure awaits!' : 'Got a code? Enter it to unlock a surprise adventure.'}
             </p>
           </div>
 
@@ -126,24 +90,17 @@ export default function RoadTripModal({ onClose, onUnlock, unlockedRoadTrips }) 
                 onChange={e => { setCode(e.target.value); setError('') }}
                 placeholder="Enter your code…"
                 style={{
-                  width: '100%',
-                  padding: '16px 18px',
-                  borderRadius: 14,
-                  border: `2px solid ${error ? '#ff6b9d' : '#e8d5f5'}`,
-                  fontSize: 16,
-                  background: '#fdf6ff',
-                  color: '#2d1b69',
-                  outline: 'none',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.08em',
+                  width: '100%', padding: '16px 18px', borderRadius: 16,
+                  border: `2.5px solid ${error ? '#E8A598' : '#F0E4C8'}`,
+                  fontSize: 16, background: '#FFFDF5', color: '#3D2B0A', outline: 'none',
+                  textTransform: 'uppercase', letterSpacing: '0.08em',
+                  fontFamily: 'Nunito, sans-serif',
                 }}
                 autoFocus
               />
               {error && (
-                <motion.p
-                  initial={{ opacity: 0, y: -4 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  style={{ fontSize: 13, color: '#e05a78', textAlign: 'center' }}
+                <motion.p initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }}
+                  style={{ fontSize: 13, color: '#C47A6A', textAlign: 'center', fontWeight: 700 }}
                 >
                   {error}
                 </motion.p>
@@ -151,52 +108,24 @@ export default function RoadTripModal({ onClose, onUnlock, unlockedRoadTrips }) 
               <motion.button
                 whileTap={{ scale: 0.97 }}
                 type="submit"
-                style={{
-                  width: '100%',
-                  padding: '16px 0',
-                  borderRadius: 999,
-                  border: 'none',
-                  background: 'linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%)',
-                  color: '#fff',
-                  fontSize: 16,
-                  fontWeight: 700,
-                  boxShadow: '0 6px 24px rgba(108,92,231,0.35)',
-                }}
+                style={{ width: '100%', padding: '16px 0', borderRadius: 999, border: 'none', background: 'linear-gradient(135deg, #5C3D1E 0%, #8B6340 100%)', color: '#FFF3C0', fontSize: 16, fontWeight: 800, boxShadow: '0 6px 24px rgba(92,61,30,0.3)' }}
               >
                 Unlock Adventure 🗺️
               </motion.button>
-              <button
-                type="button"
-                onClick={onClose}
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  fontSize: 14,
-                  color: '#b4a0cc',
-                  padding: '8px 0',
-                }}
+              <button type="button" onClick={onClose}
+                style={{ background: 'none', border: 'none', fontSize: 14, color: '#C4A882', padding: '8px 0', fontWeight: 700 }}
               >
                 Not yet
               </button>
             </form>
           ) : (
             <motion.button
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
               whileTap={{ scale: 0.97 }}
               onClick={onClose}
-              style={{
-                width: '100%',
-                padding: '18px 0',
-                borderRadius: 999,
-                border: 'none',
-                background: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
-                color: '#0a4a2e',
-                fontSize: 17,
-                fontWeight: 700,
-              }}
+              style={{ width: '100%', padding: '18px 0', borderRadius: 999, border: 'none', background: 'linear-gradient(135deg, #F5C842 0%, #E8A520 100%)', color: '#3D2B0A', fontSize: 17, fontWeight: 800 }}
             >
-              Let's go! 🚗
+              Let's go! 🥚
             </motion.button>
           )}
         </motion.div>

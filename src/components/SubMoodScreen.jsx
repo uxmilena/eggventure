@@ -2,9 +2,9 @@ import { motion } from 'framer-motion'
 import { subMoods } from '../data/dates'
 
 const moodColors = [
-  { bg: '#fff0f3', border: '#ffc0cb', text: '#9b2545' },
-  { bg: '#fffbeb', border: '#fde68a', text: '#92400e' },
-  { bg: '#f0fdf4', border: '#bbf7d0', text: '#166534' },
+  { bg: '#FFF0EE', border: '#E8A598', text: '#7A3828' },
+  { bg: '#FFFAED', border: '#F5C842', text: '#7A5800' },
+  { bg: '#F0F5E8', border: '#8FAF6A', text: '#3A5A18' },
 ]
 
 export default function SubMoodScreen({ category, onSelect, onBack }) {
@@ -18,39 +18,23 @@ export default function SubMoodScreen({ category, onSelect, onBack }) {
       exit={{ opacity: 0, x: -40 }}
       transition={{ duration: 0.3 }}
       className="flex flex-col min-h-full"
-      style={{ background: '#fdf6ee' }}
+      style={{ background: '#FFF8E7' }}
     >
-      {/* Back + Header */}
       <div style={{ padding: '48px 24px 28px' }}>
         <button
           onClick={onBack}
-          style={{
-            background: 'none',
-            border: 'none',
-            padding: 0,
-            fontSize: 14,
-            color: '#7c6a9e',
-            display: 'flex',
-            alignItems: 'center',
-            gap: 4,
-            marginBottom: 20,
-            fontWeight: 500,
-          }}
+          style={{ background: 'none', border: 'none', padding: 0, fontSize: 14, color: '#C4A882', display: 'flex', alignItems: 'center', gap: 4, marginBottom: 20, fontWeight: 700 }}
         >
           ← Back
         </button>
-        <h2
-          className="font-display"
-          style={{ fontSize: 30, fontWeight: 700, color: '#1e1030', lineHeight: 1.2 }}
-        >
+        <h2 className="font-display" style={{ fontSize: 32, color: '#3D2B0A', lineHeight: 1.2 }}>
           What's the mood?
         </h2>
-        <p style={{ marginTop: 8, color: '#7c6a9e', fontSize: 15 }}>
+        <p style={{ marginTop: 8, color: '#8B6340', fontSize: 15, fontWeight: 600 }}>
           Fine-tune the vibe
         </p>
       </div>
 
-      {/* Mood cards */}
       <div style={{ padding: '0 24px', display: 'flex', flexDirection: 'column', gap: 14 }}>
         {moods.map((mood, i) => {
           const colors = moodColors[i % moodColors.length]
@@ -59,27 +43,25 @@ export default function SubMoodScreen({ category, onSelect, onBack }) {
               key={mood.id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.08, type: 'spring', stiffness: 300, damping: 24 }}
+              transition={{ delay: i * 0.09, type: 'spring', stiffness: 280, damping: 22 }}
               whileTap={{ scale: 0.97 }}
               whileHover={{ scale: 1.02 }}
               onClick={() => onSelect(mood.id)}
               style={{
                 background: colors.bg,
-                border: `2px solid ${colors.border}`,
-                borderRadius: 20,
+                border: `2.5px solid ${colors.border}`,
+                borderRadius: 24,
                 padding: '22px 20px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: 16,
+                display: 'flex', alignItems: 'center', gap: 16,
                 textAlign: 'left',
-                boxShadow: '0 2px 12px rgba(0,0,0,0.06)',
+                boxShadow: '0 3px 14px rgba(92,61,30,0.08)',
                 width: '100%',
               }}
             >
-              <span style={{ fontSize: 36 }}>{mood.emoji}</span>
+              <span style={{ fontSize: 38 }}>{mood.emoji}</span>
               <div>
-                <div style={{ fontSize: 18, fontWeight: 700, color: colors.text }}>{mood.label}</div>
-                <div style={{ fontSize: 13, color: '#9b8ab0', marginTop: 2 }}>{mood.description}</div>
+                <div style={{ fontSize: 18, fontWeight: 800, color: colors.text }}>{mood.label}</div>
+                <div style={{ fontSize: 13, color: '#C4A882', marginTop: 3, fontWeight: 600 }}>{mood.description}</div>
               </div>
             </motion.button>
           )
