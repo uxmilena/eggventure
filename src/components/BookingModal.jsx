@@ -35,6 +35,7 @@ export default function BookingModal({ date, onConfirm, onClose }) {
       setTimeout(() => onConfirm(), 1800)
     } catch {
       setStatus('error')
+      setTimeout(() => onConfirm(), 2500)
     }
   }
 
