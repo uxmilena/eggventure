@@ -106,7 +106,7 @@ export default function App() {
     setCategory(null)
     setSubmood(null)
     setSelectedDate(null)
-    setScreen(SCREENS.LANDING)
+    setScreen(SCREENS.COUNTDOWN)
   }
 
   function handleWait(dateId) {
