@@ -16,4 +16,14 @@ export const riddles = [
     question: "What did we order the first time we got takeout together?",
     answer: "pizza",
   },
+  {
+    id: 4,
+    question: "You're not a yolk but you're my favorite. You're not a name but you answer to it. Who are you?",
+    answer: "eggy",
+  },
+  {
+    id: 5,
+    question: "I'm a workplace but nobody actually works. I'm a show but Eggy never skips me. What am I?",
+    answer: "the office",
+  },
 ]
