@@ -1,7 +1,7 @@
 export const ROAD_TRIP_CODES = {
-  TORTUGA01: 'tortuga',
-  VEGAS02: 'vegas',
-  NOLA03: 'nola',
+  TURTLES: 'tortuga',
+  HANGOVER: 'vegas',
+  BEIGNET: 'nola',
 }
 
 export const categories = [

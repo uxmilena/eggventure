@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ROAD_TRIP_CODES } from '../data/dates'
 
+// Valid codes: TURTLES, HANGOVER, BEIGNET
 const VALID_CODES = Object.keys(ROAD_TRIP_CODES)
 
 function ConfettiPiece({ x, color, delay }) {

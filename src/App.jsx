@@ -1,40 +1,56 @@
 import { useState } from 'react'
 import { AnimatePresence } from 'framer-motion'
 import { useGameState } from './hooks/useGameState'
-import { getDateOptions } from './data/dates'
+import { getDateOptions, dates, ROAD_TRIP_CODES } from './data/dates'
+import { riddles } from './data/riddles'
 import LandingScreen from './components/LandingScreen'
+import RiddleScreen from './components/RiddleScreen'
+import DayNightScreen from './components/DayNightScreen'
 import CategoryScreen from './components/CategoryScreen'
 import SubMoodScreen from './components/SubMoodScreen'
 import DateRevealScreen from './components/DateRevealScreen'
 import RoadTripModal from './components/RoadTripModal'
-import RoadTripRevealScreen from './components/RoadTripRevealScreen'
 
 const SCREENS = {
-  LANDING: 'landing',
+  LANDING:  'landing',
+  RIDDLE:   'riddle',
+  DAYNIGHT: 'daynight',
   CATEGORY: 'category',
-  SUBMOOD: 'submood',
-  REVEAL: 'reveal',
-  ROADTRIP_REVEAL: 'roadtrip_reveal',
+  SUBMOOD:  'submood',
+  REVEAL:   'reveal',
 }
 
 function pickDate(options, completedDates) {
   const undone = options.filter(d => !completedDates.includes(d.id))
-  const pool = undone.length > 0 ? undone : options
+  const pool   = undone.length > 0 ? undone : options
   return pool[Math.floor(Math.random() * pool.length)]
 }
 
 export default function App() {
-  const { state, markDateDone, unlockRoadTrip, needsRiddle } = useGameState()
+  const { state, markDateDone, unlockRoadTrip } = useGameState()
 
-  const [screen, setScreen] = useState(SCREENS.LANDING)
-  const [time, setTime] = useState(null)       // set on landing, carried through
-  const [category, setCategory] = useState(null)
-  const [submood, setSubmood] = useState(null)
+  const [screen, setScreen]             = useState(SCREENS.LANDING)
+  const [time, setTime]                 = useState(null)
+  const [category, setCategory]         = useState(null)
+  const [submood, setSubmood]           = useState(null)
   const [selectedDate, setSelectedDate] = useState(null)
   const [showRoadTripModal, setShowRoadTripModal] = useState(false)
 
-  // Landing: user picks day/night and proceeds
-  function handleStart(selectedTime) {
+  // Riddle index computed from progress — cycles through available riddles
+  const riddleIndex  = state.completedDates.length % riddles.length
+  const currentRiddle = riddles[riddleIndex]
+
+  // ── Navigation handlers ────────────────────────────────────────────────
+
+  function handleStart() {
+    setScreen(SCREENS.RIDDLE)
+  }
+
+  function handleRiddleSolved() {
+    setScreen(SCREENS.DAYNIGHT)
+  }
+
+  function handleTimePick(selectedTime) {
     setTime(selectedTime)
     setScreen(SCREENS.CATEGORY)
   }
@@ -42,13 +58,19 @@ export default function App() {
   function handleCategorySelect(cat) {
     setCategory(cat)
     if (cat === 'roadtrip') {
-      setScreen(SCREENS.ROADTRIP_REVEAL)
+      // Pick a road trip date and go straight to reveal
+      const order    = ['TURTLES', 'HANGOVER', 'BEIGNET']
+      const unlocked = order.filter(code => state.roadTripUnlocked.includes(code))
+      const code     = unlocked[0]
+      const tripSlug = ROAD_TRIP_CODES[code]
+      const rtDate   = dates.find(d => d.roadTripCode === tripSlug)
+      setSelectedDate(rtDate || null)
+      setScreen(SCREENS.REVEAL)
     } else {
       setScreen(SCREENS.SUBMOOD)
     }
   }
 
-  // SubMood selected: pick a date using the time already chosen on landing
   function handleSubMoodSelect(mood) {
     setSubmood(mood)
     const options = getDateOptions(category, mood, time)
@@ -67,30 +89,33 @@ export default function App() {
 
   function handleDone(dateId) {
     markDateDone(dateId)
-    resetToCategory()
-  }
-
-  function resetToCategory() {
+    // After done, go back to category (keep time selection)
     setCategory(null)
     setSubmood(null)
     setSelectedDate(null)
     setScreen(SCREENS.CATEGORY)
   }
 
-  function handleBack() {
-    if (screen === SCREENS.CATEGORY) {
-      setScreen(SCREENS.LANDING)
-    } else if (screen === SCREENS.SUBMOOD) {
+  function handlePickAgain() {
+    // Go back to SubMood (same category, keep time)
+    setSubmood(null)
+    setSelectedDate(null)
+    if (category === 'roadtrip') {
       setCategory(null)
       setScreen(SCREENS.CATEGORY)
-    } else if (screen === SCREENS.ROADTRIP_REVEAL) {
-      setScreen(SCREENS.CATEGORY)
     } else {
-      setScreen(SCREENS.CATEGORY)
+      setScreen(SCREENS.SUBMOOD)
     }
   }
 
-  const isFirstEver = !state.firstDateDone && state.completedDates.length === 0
+  function handleBackFromCategory() {
+    setScreen(SCREENS.DAYNIGHT)
+  }
+
+  function handleBackFromSubMood() {
+    setSubmood(null)
+    setScreen(SCREENS.CATEGORY)
+  }
 
   return (
     <div
@@ -112,13 +137,31 @@ export default function App() {
           </div>
         )}
 
+        {screen === SCREENS.RIDDLE && (
+          <div key="riddle" style={{ flex: 1, minHeight: '100%' }}>
+            <RiddleScreen
+              riddle={currentRiddle}
+              riddleNumber={riddleIndex + 1}
+              onSolved={handleRiddleSolved}
+            />
+          </div>
+        )}
+
+        {screen === SCREENS.DAYNIGHT && (
+          <div key="daynight" style={{ flex: 1, display: 'flex', flexDirection: 'column', minHeight: '100%' }}>
+            <DayNightScreen onSelect={handleTimePick} />
+          </div>
+        )}
+
         {screen === SCREENS.CATEGORY && (
           <div key="category" style={{ flex: 1, overflowY: 'auto', minHeight: '100%' }}>
             <CategoryScreen
               onSelect={handleCategorySelect}
               onRoadTripLocked={() => setShowRoadTripModal(true)}
               unlockedRoadTrips={state.roadTripUnlocked}
-              onBack={handleBack}
+              onBack={handleBackFromCategory}
+              time={time}
+              completedDates={state.completedDates}
             />
           </div>
         )}
@@ -128,7 +171,7 @@ export default function App() {
             <SubMoodScreen
               category={category}
               onSelect={handleSubMoodSelect}
-              onBack={handleBack}
+              onBack={handleBackFromSubMood}
             />
           </div>
         )}
@@ -137,19 +180,8 @@ export default function App() {
           <div key="reveal" style={{ flex: 1, overflowY: 'auto', minHeight: '100%' }}>
             <DateRevealScreen
               date={selectedDate}
-              needsRiddle={needsRiddle()}
               onDone={handleDone}
-              isFirstEver={isFirstEver}
-            />
-          </div>
-        )}
-
-        {screen === SCREENS.ROADTRIP_REVEAL && (
-          <div key="roadtrip" style={{ flex: 1, overflowY: 'auto', minHeight: '100%' }}>
-            <RoadTripRevealScreen
-              unlockedRoadTrips={state.roadTripUnlocked}
-              onDone={handleDone}
-              onPickAgain={resetToCategory}
+              onPickAgain={handlePickAgain}
             />
           </div>
         )}

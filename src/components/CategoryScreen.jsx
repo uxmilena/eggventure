@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { categories } from '../data/dates'
+import { categories, dates } from '../data/dates'
 
 const cardColors = {
   romance:  { bg: '#FFF0EE', border: '#E8A598', emoji_bg: '#FFE0DC', text: '#7A3828' },
@@ -9,18 +9,36 @@ const cardColors = {
   roadtrip: { bg: '#F5F0E8', border: '#C8B880', emoji_bg: '#EDE4CC', text: '#5C4A1E' },
 }
 
-function CategoryCard({ cat, onSelect, unlockedRoadTrips, onLocked }) {
-  const colors = cardColors[cat.id]
-  const isLocked = cat.locked && unlockedRoadTrips.length === 0
+function isCategoryExhausted(catId, time, completedDates) {
+  if (catId === 'roadtrip') return false // road trips have their own lock logic
+  const pool = dates.filter(
+    d => d.category === catId &&
+      (d.time === time || d.time === 'any') &&
+      d.title !== 'Coming soon 🥚'
+  )
+  if (pool.length === 0) return false
+  return pool.every(d => completedDates.includes(d.id))
+}
+
+function CategoryCard({ cat, onSelect, unlockedRoadTrips, onLocked, time, completedDates }) {
+  const colors    = cardColors[cat.id]
+  const isLocked  = cat.locked && unlockedRoadTrips.length === 0
+  const exhausted = !isLocked && isCategoryExhausted(cat.id, time, completedDates)
+
+  function handlePress() {
+    if (isLocked) return onLocked()
+    if (exhausted) return
+    onSelect(cat.id)
+  }
 
   return (
     <motion.button
-      whileTap={{ scale: 0.94 }}
-      whileHover={{ scale: 1.03, y: -2 }}
-      onClick={() => isLocked ? onLocked() : onSelect(cat.id)}
+      whileTap={!exhausted ? { scale: 0.94 } : {}}
+      whileHover={!exhausted ? { scale: 1.03, y: -2 } : {}}
+      onClick={handlePress}
       style={{
-        background: colors.bg,
-        border: `2.5px solid ${colors.border}`,
+        background: exhausted ? '#F5F0E8' : colors.bg,
+        border: `2.5px solid ${exhausted ? '#E0D8C8' : colors.border}`,
         borderRadius: 24,
         padding: '22px 12px',
         display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10,
@@ -29,22 +47,28 @@ function CategoryCard({ cat, onSelect, unlockedRoadTrips, onLocked }) {
         filter: isLocked ? 'grayscale(0.25)' : 'none',
         transition: 'opacity 0.2s',
         width: '100%',
+        cursor: exhausted ? 'default' : 'pointer',
       }}
     >
-      <div style={{ width: 56, height: 56, background: colors.emoji_bg, borderRadius: 18, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 28 }}>
-        {isLocked ? '🔒' : cat.emoji}
+      <div style={{ width: 56, height: 56, background: exhausted ? '#EDE8DC' : colors.emoji_bg, borderRadius: 18, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 28 }}>
+        {isLocked ? '🔒' : exhausted ? '🥺' : cat.emoji}
       </div>
-      <span style={{ fontSize: 14, fontWeight: 700, color: colors.text }}>{cat.label}</span>
+      <span style={{ fontSize: 14, fontWeight: 700, color: exhausted ? '#C4A882' : colors.text }}>{cat.label}</span>
       {isLocked && (
         <span style={{ fontSize: 10, color: '#C4A882', fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase' }}>
           Secret
+        </span>
+      )}
+      {exhausted && (
+        <span style={{ fontSize: 10, color: '#C4A882', fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+          More coming soon
         </span>
       )}
     </motion.button>
   )
 }
 
-export default function CategoryScreen({ onSelect, onRoadTripLocked, unlockedRoadTrips, onBack }) {
+export default function CategoryScreen({ onSelect, onRoadTripLocked, unlockedRoadTrips, onBack, time, completedDates }) {
   const container = { hidden: {}, show: { transition: { staggerChildren: 0.07 } } }
   const item = { hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 280, damping: 22 } } }
 
@@ -81,7 +105,14 @@ export default function CategoryScreen({ onSelect, onRoadTripLocked, unlockedRoa
       >
         {categories.map(cat => (
           <motion.div key={cat.id} variants={item}>
-            <CategoryCard cat={cat} onSelect={onSelect} unlockedRoadTrips={unlockedRoadTrips} onLocked={onRoadTripLocked} />
+            <CategoryCard
+              cat={cat}
+              onSelect={onSelect}
+              unlockedRoadTrips={unlockedRoadTrips}
+              onLocked={onRoadTripLocked}
+              time={time}
+              completedDates={completedDates}
+            />
           </motion.div>
         ))}
       </motion.div>

@@ -4,7 +4,6 @@ const DEFAULT_STATE = {
   firstDateDone: false,
   completedDates: [],
   roadTripUnlocked: [],
-  riddlesSolved: 0,
 }
 
 function loadState() {
@@ -28,17 +27,13 @@ export function useGameState() {
   }, [state])
 
   function markDateDone(dateId) {
-    setState(prev => {
-      const isFirst = !prev.firstDateDone && prev.completedDates.length === 0
-      return {
-        ...prev,
-        firstDateDone: true,
-        completedDates: prev.completedDates.includes(dateId)
-          ? prev.completedDates
-          : [...prev.completedDates, dateId],
-        riddlesSolved: isFirst ? prev.riddlesSolved : prev.riddlesSolved + 1,
-      }
-    })
+    setState(prev => ({
+      ...prev,
+      firstDateDone: true,
+      completedDates: prev.completedDates.includes(dateId)
+        ? prev.completedDates
+        : [...prev.completedDates, dateId],
+    }))
   }
 
   function unlockRoadTrip(code) {
@@ -59,16 +54,11 @@ export function useGameState() {
     return state.completedDates.includes(dateId)
   }
 
-  function needsRiddle() {
-    return state.firstDateDone
-  }
-
   return {
     state,
     markDateDone,
     unlockRoadTrip,
     isRoadTripUnlocked,
     isDateDone,
-    needsRiddle,
   }
 }
