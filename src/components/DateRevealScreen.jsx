@@ -29,7 +29,7 @@ const RT_STARS = [
   { id: 8, x: 92, y: 12, s: 1.4, d: 1.0 }, { id: 9, x: 48, y: 28, s: 1.1, d: 0.6 },
 ]
 
-export default function DateRevealScreen({ date, onDone, onWait }) {
+export default function DateRevealScreen({ date, onDone, onWait, onMarkDone }) {
   const [showBooking, setShowBooking] = useState(false)
   const colors     = categoryColors[date.category] || categoryColors.fun
   const isRoadTrip = date.category === 'roadtrip'
@@ -124,7 +124,7 @@ export default function DateRevealScreen({ date, onDone, onWait }) {
         <motion.button
           initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }}
           whileTap={{ scale: 0.97 }}
-          onClick={() => setShowBooking(true)}
+          onClick={() => { onMarkDone(date.id); setShowBooking(true) }}
           style={{ width: '100%', padding: '18px 0', borderRadius: 999, border: 'none', background: colors.bg, color: '#3D2B0A', fontSize: 17, fontWeight: 800, boxShadow: '0 8px 28px rgba(92,61,30,0.18)' }}
         >
           Let's do this 🥚
