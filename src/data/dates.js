@@ -68,7 +68,7 @@ export const dates = [
   {
     id: 'romance-nice-night-2', category: 'romance', submood: 'nice', time: 'night',
     title: 'Night at the Theatre',
-    description: 'Dress up, sit close, and let a live performance take you somewhere else entirely.',
+    description: "Dress up, show up, and let someone else do the entertaining for once. Tonight's show: TBD. Tonight's vibe: main characters.",
     image: 'https://source.unsplash.com/featured/?theatre',
   },
 
@@ -76,7 +76,7 @@ export const dates = [
   {
     id: 'romance-naughty-day-1', category: 'romance', submood: 'naughty', time: 'day',
     title: 'Couples Massage',
-    description: 'Side by side, melting into pure bliss together.',
+    description: 'Two humans, four hands, zero stress. Consider this your official excuse to do absolutely nothing for an hour — together.',
     image: 'https://source.unsplash.com/featured/?spa-massage',
   },
   {
@@ -90,7 +90,7 @@ export const dates = [
   {
     id: 'romance-naughty-night-1', category: 'romance', submood: 'naughty', time: 'night',
     title: 'Strangers at a Bar',
-    description: 'Meet as strangers, flirt like you just found each other, and fall in love all over again.',
+    description: "You walk in. I walk in. We've never met. Let's see if I can get your number by the end of the night 😏",
     image: 'https://source.unsplash.com/featured/?cocktail-bar',
   },
   {
@@ -124,13 +124,13 @@ export const dates = [
   {
     id: 'fun-out-night-1', category: 'fun', submood: 'out', time: 'night',
     title: 'Movie Night',
-    description: 'Pick something neither of you has seen and share the popcorn.',
+    description: "Somebody picks, somebody complains about the pick, everybody ends up loving it. Snacks are non-negotiable.",
     image: 'https://source.unsplash.com/featured/?cinema',
   },
   {
     id: 'fun-out-night-2', category: 'fun', submood: 'out', time: 'night',
     title: 'Cooking Class',
-    description: 'Learn a new dish together — messy aprons and all.',
+    description: "We're basically professional chefs at this point. This is just us proving it to a room full of strangers.",
     image: 'https://source.unsplash.com/featured/?cooking-class',
   },
   {
@@ -150,7 +150,7 @@ export const dates = [
   {
     id: 'fun-creative-day-2', category: 'fun', submood: 'creative', time: 'day',
     title: 'Scrapbooking Together',
-    description: "Dig out the photos, grab the glue, and build a little memory book of us.",
+    description: "A kit was made. Memories are waiting. Tonight we turn our best moments into something you can hold forever.",
     image: 'https://source.unsplash.com/featured/?scrapbook',
   },
   {
@@ -170,13 +170,13 @@ export const dates = [
   {
     id: 'fun-creative-night-2', category: 'fun', submood: 'creative', time: 'night',
     title: 'Lego Night',
-    description: 'Pick a set, clear the table, and build something ridiculous together.',
+    description: "Instructions optional. Competitiveness mandatory. May the best builder win — and yes, we're keeping score.",
     image: 'https://source.unsplash.com/featured/?lego',
   },
   {
     id: 'fun-creative-night-3', category: 'fun', submood: 'creative', time: 'night',
-    title: 'Jewelry Making Night',
-    description: 'Beads, wire, and a little patience — make something you can both wear.',
+    title: 'Jewelry Making with Resin',
+    description: "Mixing colors, setting things in resin, probably making a mess. You'll end up with something beautiful — and so will I.",
     image: 'https://source.unsplash.com/featured/?jewelry-making',
   },
 
@@ -189,8 +189,8 @@ export const dates = [
   },
   {
     id: 'adventure-outdoors-day-2', category: 'adventure', submood: 'outdoors', time: 'day',
-    title: 'Full Hiking Day + Picnic',
-    description: 'Hit the trail, breathe fresh air, and earn that view at the top — then picnic like royalty.',
+    title: 'Hiking Day',
+    description: "Somewhere out there is a trail with our name on it. Depending on the season, the weather, and the vibe — this one's a surprise pick.",
     image: 'https://source.unsplash.com/featured/?hiking',
   },
   {
@@ -240,19 +240,19 @@ export const dates = [
   {
     id: 'food-in-day-1', category: 'food', submood: 'in', time: 'day',
     title: 'Backyard Coffee + Pastries',
-    description: 'A slow morning, good coffee, flaky pastries, and even flakier company. (+ pasties 😏)',
+    description: 'Morning sun, good coffee, fresh pastries — and whatever else the backyard has to offer. No dress code. Strictly optional. (+ pasties 😏)',
     image: 'https://source.unsplash.com/featured/?coffee-pastry',
   },
   {
     id: 'food-in-day-2', category: 'food', submood: 'in', time: 'day',
     title: 'Waffle Bar + Mimosas',
-    description: 'Build-your-own waffles, bottomless mimosas, and absolutely no rush.',
+    description: 'A whole bar. Just waffles. Just mimosas. Just us deciding that this is absolutely a legitimate meal.',
     image: 'https://source.unsplash.com/featured/?waffles',
   },
   {
     id: 'food-in-day-3', category: 'food', submood: 'in', time: 'day',
     title: 'Crepe Station + Rosé',
-    description: 'Sweet and savory crepes with a glass of something pink and perfect.',
+    description: 'You flip, I fill, we both pour. Thin, buttery, golden — and that\'s just the crepes.',
     image: 'https://source.unsplash.com/featured/?crepes',
   },
 
@@ -260,19 +260,19 @@ export const dates = [
   {
     id: 'food-in-night-1', category: 'food', submood: 'in', time: 'night',
     title: 'Homemade Pasta from Scratch',
-    description: 'Roll the dough, choose your sauce, and make dinner a full event.',
+    description: 'Flour on the counter, rosé in the glass, pasta that took way longer than expected and tasted way better than anything else.',
     image: 'https://source.unsplash.com/featured/?pasta-making',
   },
   {
     id: 'food-in-night-2', category: 'food', submood: 'in', time: 'night',
     title: 'Mezze & Wine Night',
-    description: 'Spread out a feast of dips, bites, and breads and graze the night away.',
+    description: 'Everything on the table, nothing on the agenda. Graze, sip, talk for hours. This is what a perfect night looks like.',
     image: 'https://source.unsplash.com/featured/?mezze',
   },
   {
     id: 'food-in-night-3', category: 'food', submood: 'in', time: 'night',
     title: "Chef's Food Roulette 🎲",
-    description: 'Spin the wheel, pick random ingredients, and cook something totally unplanned together.',
+    description: 'Three secret ingredients each. One wildcard. One hour. May the best chef win — and may the dishes be edible.',
     image: 'https://source.unsplash.com/featured/?cooking',
   },
 
